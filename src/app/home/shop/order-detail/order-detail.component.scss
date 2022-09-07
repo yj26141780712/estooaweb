@@ -1,0 +1,75 @@
+.form-container {
+    padding: 15px;
+}
+
+.order-title {
+    display: flex;
+    height: 40px;
+    align-items: center;
+}
+
+.order-msg {
+    padding: 20px;
+    border: 2px solid rgba(240, 240, 240, 1);
+    .item {
+        margin-bottom: 12px;
+        width: 165px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .money {
+        color: #ff5000;
+        font-size: 20px;
+    }
+    .step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.status-tip {
+    font-size: 18px;
+    color: #333;
+}
+
+.delivery-msg {
+    margin-top: 20px;
+    padding: 20px;
+    border: 2px solid rgba(240, 240, 240, 1);
+    .item {
+        margin-bottom: 12px;
+        color: #888;
+        font-size: 14px;
+    }
+    .item-title {
+        color: #444;
+    }
+}
+
+.product-msg {
+    margin-top: 20px;
+}
+
+.product-box {
+    display: flex;
+    img {
+        margin-right: 14px;
+    }
+    .order-type {
+        display: inline-block;
+        height: 20px;
+        line-height: 20px;
+        color: #fff;
+        border-radius: 4px;
+        padding: 0 10px;
+        font-size: 12px;
+    }
+    .rent {
+        background-color: #2f54eb;
+    }
+    .relet {
+        background-color: #52c41a;
+    }
+}

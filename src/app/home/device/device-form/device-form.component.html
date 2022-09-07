@@ -1,0 +1,41 @@
+<form nz-form [formGroup]="formGroup" (ngSubmit)="submitForm()">
+    <nz-form-item>
+        <nz-form-label nzSm="6" nzXs="24" nzRequired>设备型号</nz-form-label>
+        <nz-form-control nzSm="16" nzXs="24" nzErrorTip="请选择设备型号">
+            <nz-select [nzPlaceHolder]="'请选择设备型号'" formControlName="modelId">
+                <nz-option *ngFor="let model of models" [nzLabel]="model.name + '('+model.sn+')'" [nzValue]="model.id">
+                </nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label nzSm="6" nzXs="24">设备SN</nz-form-label>
+        <nz-form-control nzSm="16" nzXs="24" nzErrorTip="请输入设备SN">
+            <input type="text" nz-input formControlName="sn" autocomplete="off" placeholder="请输入设备SN">
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item *ngIf="isShowStore">
+        <nz-form-label nzSm="6" nzXs="24" nzRequired>门店</nz-form-label>
+        <nz-form-control nzSm="16" nzXs="24" nzErrorTip="请选择门店">
+            <nz-select [nzPlaceHolder]="'请选择门店'" formControlName="storeId">
+                <nz-option *ngFor="let store of stores" [nzLabel]="store.name" [nzValue]="store.id">
+                </nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item *ngIf="isEdit">
+        <nz-form-label nzSm="6" nzXs="24">使用状态</nz-form-label>
+        <nz-form-control nzSm="16" nzXs="24" nzErrorTip="请选择使用状态">
+            <nz-select formControlName="useStatus" [nzPlaceHolder]="'请选择使用状态'">
+                <nz-option *ngFor="let status of useStatuss" [nzLabel]="status.name" [nzValue]="status.value">
+                </nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+</form>
+<div *nzModalFooter>
+    <nz-space>
+        <button nz-button (click)="close()">取消</button>
+        <button nz-button nzType="primary" [nzLoading]="loading" (click)="submitForm()">确定</button>
+    </nz-space>
+</div>

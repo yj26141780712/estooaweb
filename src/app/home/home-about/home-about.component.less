@@ -1,0 +1,223 @@
+.order{
+    padding: 16px;
+    background-color: #fff;
+    height: 410px;
+    border-radius: 4px;
+    overflow: hidden;
+    &-header{
+        display: flex;
+        height: 32px;
+        align-items: center;
+        justify-content:space-between;
+        .left{
+            flex: 1;
+            .reload{
+                cursor: pointer;
+                
+            }
+        }
+        .right{
+            width: 50%;
+            max-width: 300px;
+        }
+    }
+
+    &-body{
+        width: 100%;
+        height: calc(100% - 32px); 
+    }
+}
+
+.card1{
+    padding: 10 14px;
+    position: relative;
+    background-color: #fff;
+    height: 120px;
+    border-radius: 20px;
+    padding: 14px 10px 20px 14px;
+    &-header{
+        height: 40px;
+        display: flex;
+        align-items: center;
+    };
+    &-body{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .value{
+            font-size: 30px;
+            font-weight: 600;
+        }
+        .unit{
+            margin-left: 8px;
+            margin-top: 16px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+    }
+    .icon-box{
+        height: 40px;
+        width: 40px;
+        background-color: #fff;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 26px;
+        margin-right: 16px;
+    }
+    &.payOrder {
+       color: #F0A70A;
+       border: 2px solid #FEF6DE;
+       background-color: #FEF6DE;
+       &.active{
+          border-color:#F0A70A; 
+       }
+    }
+    &.payAmount {
+        color: #4498FF;
+        border: 2px solid #E4F0FF;
+        background-color: #E4F0FF;
+        &.active{
+           border-color:#4498FF; 
+        }
+    }
+    &.noSend{
+        color: #38C769;
+        border: 2px solid #E2F7E9;
+        background-color: #E2F7E9;
+        &.active{
+            border-color:#38C769; 
+         }
+    }
+    &.payNum {
+        color: #B052EA;
+        border: 2px solid #F6E9FE;
+        background-color: #F6E9FE;
+        &.active{
+            border-color:#B052EA; 
+         }
+    }
+    &.afterScale {
+        color: #627EFC;
+        border: 2px solid #EBEEFE;
+        background-color: #EBEEFE;
+        &.active{
+            border-color:#627EFC; 
+         }
+    }
+    &.refund {
+        color: #FF826C;
+        border: 2px solid #FFEDEB;
+        background-color: #FFEDEB;
+        &.active{
+            border-color:#FF826C; 
+         }
+    }
+}
+
+.card2{
+    padding: 12px 16px;
+    margin-top: 10px;
+    height: 200px;
+    background-color: #fff;
+    border-radius: 4px;
+    overflow: hidden;
+    &-header{
+        font-weight: 600;
+    }
+    &-body{
+        display: flex;
+        &-item{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 160px;
+        }
+        .left{
+            flex: 1;
+        }
+        .right{
+            flex: 1;
+            flex-direction: column;
+            .text{
+                font-size: 14px;
+            }
+            .value{
+                margin-top: 16px;
+                font-size: 24px;
+                font-weight: 600;
+                color: #753ECD;
+            }
+        }
+    }
+}
+
+.circle {
+    position: relative;
+    height: 90px;
+    width: 90px;
+    box-shadow: 0px 8px 20px 0px rgb(117 62 205 / 12%);
+    border-radius: 50%;
+    &-inner{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        height: 62px;
+        width: 62px;
+        background-color: #f6f2fc;
+        border-radius: 50%;
+        transform: translate(-50%,-50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    &-progress{
+        position: absolute;
+        top: 50%;
+        left: 50%; 
+        transform: translate(-50%,-50%);
+    }
+}
+
+.chart-circle{
+    height: 136px;
+    width: 136px;
+    .circle-inner{
+        height: 90px;
+        width: 90px;
+        color: #753ECD;
+        font-size: 18px;
+    }
+    .circle-progress{
+        height: 100%;
+        width: 100%;
+    }
+    .type-chart{
+        height: 100%;
+        width: 100%;
+    }
+}
+
+.chart{
+   width: 100%;
+   height: 100%; 
+}
+
+.type-chart{
+    height: 100%;
+    width: 100%;
+}
+
+.type-item{
+    height: 40px;
+    display: flex;
+    align-items: center;
+    &-icon{
+        height: 10px;
+        width: 10px;
+        display: inline-block;
+        border-radius: 50%;
+        margin-right: 6px;
+    }
+}

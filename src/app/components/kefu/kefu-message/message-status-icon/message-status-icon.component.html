@@ -1,0 +1,5 @@
+<ng-container [ngSwitch]="message.status">
+    <span *ngSwitchCase="'unSend'" nz-icon nzType="loading"></span>
+    <span *ngSwitchCase="'fail'" class="fail" (click)="reSend()">!</span>
+    <span *ngSwitchDefault></span>
+</ng-container>

@@ -1,0 +1,28 @@
+<div class="form-container">
+    <app-tree-view #tree [treeData]="treeData" [expandedKeys]="expandedKeys" [checkedKeys]="checkedKeys"
+        [showCheckbox]="true" [treeTemplate]="treeTemplate">
+        <ng-template #treeTemplate let-node>
+            <div nz-row [nzGutter]="[12,0]">
+                <div nz-col [nzSpan]="6">
+                    <i nz-icon [nzType]="'file'" nzTheme="outline" style="margin-right:4px"></i>
+                    <span>{{ node.name }}</span>
+                </div>
+                <!-- <div *ngIf="node.origin" nz-col [nzSpan]="18">
+                    <div (click)="test($event)">
+                        <nz-tag *ngFor="let action of node.origin.acitons" nzMode="checkable"
+                            [nzChecked]="isChecked(node,action.value)"
+                            (nzCheckedChange)="checkChange($event,action.value,node)">
+                            {{action?.name}}
+                        </nz-tag>
+                    </div>
+                </div> -->
+            </div>
+        </ng-template>
+    </app-tree-view>
+</div>
+<div *nzModalFooter>
+    <nz-space>
+        <button nz-button (click)="cancle()">取消</button>
+        <button nz-button nzType="primary" [nzLoading]="loading" (click)="submit()">确定</button>
+    </nz-space>
+</div>

@@ -1,0 +1,3 @@
+<app-kefu-session *ngFor="let item of list" [session]="item" [class.active]="item.conversationID===conversationID"
+    (onSelect)="onSelect($event)" (onClose)="onClose($event)" (onAdd)="onAdd($event)" [showAdd]="showAdd">
+</app-kefu-session>

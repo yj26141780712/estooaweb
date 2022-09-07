@@ -1,0 +1,117 @@
+<div class="page-container menu">
+    <div class="table-search">
+        <form nz-form [formGroup]="formGroup">
+            <div nz-row [nzGutter]="[24,0]">
+                <div nz-col [nzLg]="6" [nzMd]="12" [nzSm]="24" [nzXs]="24">
+                    <nz-form-item>
+                        <nz-form-label nzFor="">
+                            姓名
+                        </nz-form-label>
+                        <nz-form-control>
+                            <input type="text" nz-input formControlName="name" placeholder="请输入">
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col [nzLg]="3" [nzMd]="12" [nzSm]="24" [nzXs]="24">
+                    <nz-form-item>
+                        <nz-form-control>
+                            <nz-space>
+                                <button *nzSpaceItem nz-button nzType="primary" (click)="search()">搜索</button>
+                                <button *nzSpaceItem nz-button nzType="primary" (click)="reset()">重置</button>
+                            </nz-space>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="table-body" #tableBody>
+        <div class="table-tools">
+            <div class="table-tools-left">
+                <nz-space>
+                    <button nz-button nzType="primary" (click)="add()">
+                        <span nz-icon nzType="plus"></span>
+                        新增
+                    </button>
+                </nz-space>
+            </div>
+            <div class="table-tools-right">
+                <div class="table-tools-setting-item">
+                    <span nz-icon nzType="reload" nz-tooltip nzTooltipTitle="刷新" (click)="refresh($event)"></span>
+                </div>
+                <div class="table-tools-setting-item">
+                    <span nz-icon nzType="column-height" nz-tooltip nzTooltipTitle="密度" nz-dropdown
+                        [nzDropdownMenu]="menu" [nzTrigger]="'click'" [nzPlacement]="'bottomRight'"></span>
+                    <nz-dropdown-menu #menu="nzDropdownMenu">
+                        <ul nz-menu nzSelectable style="width: 80px;">
+                            <li nz-menu-item (click)="setSize('default')">默认</li>
+                            <li nz-menu-item (click)="setSize('middle')">中等</li>
+                            <li nz-menu-item (click)="setSize('small')">紧凑</li>
+                        </ul>
+                    </nz-dropdown-menu>
+                </div>
+                <div class="table-tools-setting-item">
+                    <span nz-icon nzType="setting" nz-tooltip nzTooltipTitle="列设置" nz-popover
+                        [nzPopoverTitle]="titleTemplate" [nzPopoverContent]="contentTemplate"
+                        [nzPopoverTrigger]="'click'" [nzPopoverPlacement]="'bottomRight'"></span>
+                    <ng-template #titleTemplate>
+                        <div class="table-column-setting-list">
+                            <label nz-checkbox [(ngModel)]="allChecked" [nzIndeterminate]="indeterminate"
+                                (ngModelChange)="updateAllChecked()">列展示</label>
+                            <a (click)="resetColumns($event)">重置</a>
+                        </div>
+                    </ng-template>
+                    <ng-template #contentTemplate>
+                        <div class="table-column-setting-item" *ngFor="let column of columns">
+                            <label nz-checkbox [(ngModel)]="column.checked"
+                                (ngModelChange)="updateSingleChecked()">{{column.title}}</label>
+                        </div>
+                    </ng-template>
+                </div>
+                <div class="table-tools-setting-item">
+                    <span nz-icon [nzType]="getFullscreen()?'fullscreen-exit':'fullscreen'" nz-tooltip
+                        nzTooltipTitle="放大" (click)="fullscreen()"></span>
+                </div>
+            </div>
+        </div>
+        <nz-table #nzTable [nzData]="tableData" [nzLoading]="loading" [nzSize]="tableSize" [nzPageSize]="pageSize"
+            [nzFrontPagination]="false" [nzTotal]="total" [nzPageIndex]="pageNum"
+            (nzQueryParams)="onQueryParamsChange($event)">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <ng-container *ngFor="let column of columns">
+                        <th *ngIf="column.checked" [nzColumnKey]="column.key" [nzShowFilter]="column.showFilter"
+                            [nzFilters]="column.filters || []" [nzShowSort]="column.showSort" [nzFilterFn]="true"
+                            [nzSortFn]="true" [nzSortPriority]="true">
+                            {{ column.title }}
+                        </th>
+                    </ng-container>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let item of nzTable.data;let i = index">
+                    <tr *ngIf="(item.parent && item.parent.expand) || !item.parent">
+                        <td>{{ i+1 }}</td>
+                        <ng-container *ngFor="let column of columns">
+                            <td *ngIf="column.checked">
+                                <ng-container *ngIf="column.key==='photo'">
+                                    <img nz-image width="30px" height="30px" [nzSrc]="item.photo?.url"
+                                        [nzDisablePreview]="true" (click)="preview(item)" />
+                                </ng-container>
+                                <ng-container *ngIf="column.key!='photo'">
+                                    {{ column.change?column.change(item[column.key]):item[column.key] }}
+                                </ng-container>
+                            </td>
+                        </ng-container>
+                        <td>
+                            <a style="margin-right:6px" (click)="edit($event,item)">编辑</a>
+                            <a (click)="delete($event,item)">删除</a>
+                        </td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </nz-table>
+    </div>
+</div>

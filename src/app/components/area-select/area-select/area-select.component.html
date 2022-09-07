@@ -1,0 +1,19 @@
+<div class="form-container">
+    <div class="title">
+        <div>
+            <label nz-checkbox [(ngModel)]="allChecked" (ngModelChange)="updateAllChecked()">全选</label>
+        </div>
+        <div>
+            <a (click)="confirm($event)">确定</a>
+        </div>
+    </div>
+    <div>
+        <app-tree-view #tree [treeData]="treeData" [selectedKeys]="selectedKeys" [treeTemplate]="treeTemplate"
+            (nodeClickEvent)="nodeClickEvent($event)" [showSearch]="true" [showCheckbox]="true"
+            [placeholder]="'请输入关键字过滤'">
+            <ng-template #treeTemplate let-node>
+                {{node.name}}
+            </ng-template>
+        </app-tree-view>
+    </div>
+</div>

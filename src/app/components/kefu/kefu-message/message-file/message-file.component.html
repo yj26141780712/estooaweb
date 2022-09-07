@@ -1,0 +1,14 @@
+<app-message-bubble [isMine]="isMine" [message]="message">
+    <div class="file-wrapper" title="单击下载" (click)="download()">
+        <div class="header">
+            <span nz-icon nzType="file"></span>
+            <div class="file">
+                <span class="file-name">{{ payload?.fileName }}</span>
+                <span class="file-size">{{ payload?.fileSize | nzBytes }}</span>
+            </div>
+        </div>
+        <div *ngIf="message.status === 'unSend'">
+            <nz-progress [nzPercent]="message.progress"></nz-progress>
+        </div>
+    </div>
+</app-message-bubble>

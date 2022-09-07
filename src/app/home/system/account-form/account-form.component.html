@@ -1,0 +1,93 @@
+<div class="form-container">
+    <form nz-form [formGroup]="formGroup">
+        <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>账号</nz-form-label>
+            <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="accountErrTip">
+                <input type="text" nz-input formControlName="account" placeholder="请输入账号">
+                <ng-template #accountErrTip let-control>
+                    <ng-container *ngIf="control.hasError('required')">
+                        请输入账号！
+                    </ng-container>
+                    <ng-container *ngIf="control.hasError('pattern')">
+                        请输入8-20位字母和数字！
+                    </ng-container>
+                </ng-template>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>密码</nz-form-label>
+            <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="passwordErrTip">
+                <nz-input-group [nzSuffix]="">
+                    <input type="password" nz-input formControlName="password" placeholder="请输入密码">
+                    <ng-template #passwordErrTip let-control>
+                        <ng-container *ngIf="control.hasError('required')">
+                            请输入密码！
+                        </ng-container>
+                        <!-- /^(?![A-z0-9]+$)(?=.[^%&',;=?$\x22])(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,20}$/ -->
+                        <!-- <ng-container *ngIf="control.hasError('pattern')">
+                            请输入带有大小写数字及特殊字符的密码！
+                        </ng-container> -->
+                    </ng-template>
+                </nz-input-group>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>手机号码</nz-form-label>
+            <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="phoneErrTip">
+                <input type="text" nz-input formControlName="phone" placeholder="请输入手机号码">
+                <ng-template #phoneErrTip let-control>
+                    <ng-container *ngIf="control.hasError('required')">
+                        请输入手机号码！
+                    </ng-container>
+                    <ng-container *ngIf="control.hasError('pattern')">
+                        请输入正确的手机号码！
+                    </ng-container>
+                </ng-template>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>账号类型</nz-form-label>
+            <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="'请输入账号类型'">
+                <nz-select formControlName="accountType" nzPlaceHolder="请选择账号类型">
+                    <nz-option *ngFor="let option of typeOptions" [nzValue]="option.value" [nzLabel]="option.label">
+                    </nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>账号等级</nz-form-label>
+            <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="'请输入账号等级'">
+                <nz-select formControlName="accountLevel" nzPlaceHolder="请选择账号等级">
+                    <nz-option *ngFor="let option of levelOptions" [nzValue]="option.value" [nzLabel]="option.label">
+                    </nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24">角色</nz-form-label>
+            <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="'请输入角色名称'">
+                <nz-select formControlName="roleId" nzPlaceHolder="请选择账号等级">
+                    <nz-option *ngFor="let option of roleOptions" [nzValue]="option.value" [nzLabel]="option.label">
+                    </nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24">推荐人</nz-form-label>
+            <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="referencePhoneErrTip">
+                <input type="text" nz-input formControlName="referencePhone" placeholder="请输入推荐人手机号码">
+                <ng-template #referencePhoneErrTip let-control>
+                    <ng-container *ngIf="control.hasError('pattern')">
+                        请输入正确的手机号码！
+                    </ng-container>
+                </ng-template>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+</div>
+<div *nzModalFooter="">
+    <nz-space>
+        <button nz-button (click)="cancle()">取消</button>
+        <button nz-button nzType="primary" (click)="submit()" [nzLoading]="loading">确定</button>
+    </nz-space>
+</div>

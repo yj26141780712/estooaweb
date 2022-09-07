@@ -1,0 +1,77 @@
+<div class="form-container">
+    <div class="send-table">
+        <table>
+            <thead>
+                <th width="58%">商品</th>
+                <th width="12%"> 状态</th>
+                <th width="30%">SN</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let product of orderProduct;">
+                    <td>
+                        <div class="product-box">
+                            <img nz-image width="50px" height="50px" [nzSrc]="item?.orderProduct[0]?.productImage"
+                                alt="" />
+                            <div>
+                                <div style="margin-bottom: 12px;">
+                                    <span>{{ product.productTitle }}</span>
+
+                                </div>
+                                <div style="color:#999">
+                                    <span style="margin-right: 8px;color: #999;">规格：{{product.productUnitName}}</span>
+                                    <span style="margin-right: 8px;color: #999;">单价：{{product.productPrice}}</span>
+                                    <span style="margin-right: 8px;color: #999;">数量：{{product.productNum}}</span>
+                                    <span *ngIf="item.orderType==='rent'" style="margin-right: 8px;"
+                                        class="order-type rent">租借</span>
+                                    <span *ngIf="item.orderType==='relet'" style="margin-right: 8px;"
+                                        class="order-type relet">续租</span>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="text-align: center;">
+                            {{product.dispatchStatusText}}
+                        </div>
+                    </td>
+                    <td>
+                        <input nz-input type="text" placeholder="请输入" [(ngModel)]="snObj[product.id]">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="send-address">
+        <div>
+            配送信息:
+        </div>
+        <div class="send-address-detail">
+            <div>
+                配送方式：{{orderProduct[0].dispatchTypeText}}
+            </div>
+            <div>
+                收货人：{{item.realname}} {{item.phone}}
+            </div>
+            <div>
+                收货地址：{{item.provinceName}}{{item.cityName}}{{item.areaName}}{{item.address}}
+            </div>
+        </div>
+    </div>
+    <div class="send-express">
+        <div>
+            <label for="">快递公司</label>
+            <nz-select style="flex:1;margin:0 8px;" [nzPlaceHolder]="'请选择快递公司'" [(ngModel)]="expressCode">
+                <nz-option *ngFor="let express of expressList" [nzLabel]="express.name" [nzValue]="express.code">
+                </nz-option>
+            </nz-select>
+        </div>
+        <div>
+            <label for="">快递单号</label>
+            <input nz-input type="text" style="flex:1;margin:0 8px;" [(ngModel)]="expressNo" placeholder="请输入快递单号">
+        </div>
+    </div>
+</div>
+<div *nzModalFooter>
+    <button nz-button (click)="cancel()">取消</button>
+    <button nz-button nzType="primary" [nzLoading]="loading" (click)="submitForm()">确定</button>
+</div>

@@ -1,0 +1,6 @@
+<app-message-bubble [isMine]="isMine" [message]="message">
+    <img nz-image style="max-width: 300px;" [nzSrc]="getImageUrl()" (load)="onImageLoad()">
+    <div *ngIf="message.status === 'unSend'">
+        <nz-progress [nzPercent]="message.progress"></nz-progress>
+    </div>
+</app-message-bubble>

@@ -1,0 +1,21 @@
+{
+    "setting":{
+        "pagestyle": {
+            "title":"整体风格设置",
+            "default":"默认菜单风格",
+            "dark":"深色菜单风格",
+            "red":"红色模式"
+        },
+        "navigation": {
+            "mode":"导航模式",
+            "siderMenu":"侧边菜单布局",
+            "topMenu":"顶部菜单布局",
+            "mixinMenu":"混合布局"
+        },
+        "fixedheader":"固定头部",
+        "fixedsidebar":"固定侧边栏",
+        "othersettings":"其他设置",
+        "manytabs":"多标签",
+        "fixedmanytabs":"固定多标签"
+    }
+}

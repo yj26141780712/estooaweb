@@ -1,0 +1,40 @@
+<div class="warp">
+    <div class="avatar">
+        <nz-avatar [nzShape]="'square'" [nzSize]="40" nzIcon="user" [nzSrc]="avatar">
+        </nz-avatar>
+        <div class="unread-count">
+            <span class="badge" *ngIf="showUnreadCount">
+                {{unreadCount}}
+            </span>
+        </div>
+    </div>
+    <div class="content">
+        <div class="row1">
+            <div class="name">
+                <div class="text-ellipsis">
+                    <span [title]="title">
+                        {{ title }}
+                    </span>
+                </div>
+                <div *ngIf="showAdd" class="add" (click)="add($event)">
+                    加入会话
+                </div>
+            </div>
+        </div>
+        <div class="row2">
+            <div class="summary">
+                <div class="text-ellipsis">
+                    <span [title]="MessageForShow">
+                        {{ MessageForShow }}
+                    </span>
+                </div>
+            </div>
+            <div class="date">
+                {{ lastTime }}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="btn-close">
+    <span nz-icon nzType="close" (click)="close($event)"></span>
+</div>

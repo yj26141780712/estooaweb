@@ -1,0 +1,114 @@
+<div class="top">
+    <div class="login-title">
+        <img src="" alt="">
+        <span>管理系统</span>
+    </div>
+    <div class="login-desc">
+        <span></span>
+    </div>
+</div>
+<div class="main">
+    <div class="login-form">
+        <nz-tabset [nzAnimated]="true" [nzCentered]="true" [(nzSelectedIndex)]="selectedIndex"
+            (nzSelectChange)="selectChange($event)">
+            <nz-tab nzTitle="密码登录">
+                <form nz-form [formGroup]="passwordForm" (ngSubmit)="submitForm()">
+                    <nz-form-item>
+                        <nz-form-control [nzErrorTip]="'请输入账号或者手机号码'">
+                            <nz-input-group [nzPrefix]="userIcon" [nzSize]="'large'">
+                                <input nz-input type="text" class="login-input" nzSize="large"
+                                     nz-input formControlName="phone"  placeholder="请输入账号或者手机号码" autocomplete="phone">
+                                <ng-template #userIcon>
+                                    <span nz-icon [nzIconfont]="'icon-user'" class="prefix-icon"></span>
+                                </ng-template>
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-control [nzErrorTip]="'请输入密码'">
+                            <nz-input-group [nzPrefix]="passwordIcon" [nzSize]="'large'">
+                                <input nz-input type="password" autocomplete="new-password" class="login-input"
+                                    nzSize="large"  nz-input formControlName="password"  placeholder="请输入密码"   />
+                                <ng-template #passwordIcon>
+                                    <span nz-icon [nzIconfont]="'icon-password'" class="prefix-icon"></span>
+                                </ng-template>
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                </form>
+            </nz-tab>
+            <nz-tab nzTitle="验证码登录">
+                <form nz-form [formGroup]="phoneForm" (ngSubmit)="submitForm()">
+                    <nz-form-item>
+                        <nz-form-control [nzErrorTip]="'请输入手机号码'">
+                            <nz-input-group [nzPrefix]="phoneIcon" [nzSize]="'large'">
+                                <input nz-input type="text" class="login-input" [nzSize]="'large'"
+                                     nz-input formControlName="phone"  placeholder="请输入手机号码" autocomplete="phone">
+                                <ng-template #phoneIcon>
+                                    <span nz-icon [nzIconfont]="'icon-phone'" class="prefix-icon"></span>
+                                </ng-template>
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-control [nzErrorTip]="'请输入验证码'">
+                            <div nz-row [nzGutter]="8">
+                                <div nz-col [nzSpan]="16">
+                                    <nz-input-group [nzPrefix]="codeIcon" [nzSize]="'large'">
+                                        <input nz-input  class="login-input" [nzSize]="'large'"
+                                             nz-input formControlName="code"  placeholder="请输入验证码"   />
+                                        <ng-template #codeIcon>
+                                            <span nz-icon [nzIconfont]="'icon-mail'" class="prefix-icon"></span>
+                                        </ng-template>
+                                    </nz-input-group>
+                                </div>
+                                <div nz-col [nzSpan]="8">
+                                    <button nz-button nzSize='large' type="button" (click)="sendVcode()"
+                                        [disabled]="sending">{{vcodeText}}</button>
+                                </div>
+                            </div>
+                        </nz-form-control>
+                    </nz-form-item>
+                </form>
+            </nz-tab>
+            <!-- <nz-tab nzTitle="扫码登录">
+                <div class="qrcode">
+                    <div #qrcode>
+
+                    </div>
+                    <div *ngIf="qrcodeDisabled" class="qrcode-error">
+                        <span class="text">二维码已失效</span>
+                        <button nz-button nzType="primary" (click)="refreshQrcode()">刷新二维码</button>
+                    </div>
+                </div>
+                <div class="qrcode-text">
+                    打开手机app扫一扫登录
+                </div>
+            </nz-tab> -->
+        </nz-tabset>
+        <nz-form-item>
+            <nz-form-control>
+                <label nz-checkbox [(ngModel)]="isAutoLogin" name="isAutoLogin">自动登录</label>
+                <span style="float: right;" (click)="updatePassword()">忘记密码</span>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-control>
+                <button nz-button nzBlock [nzType]="'primary'" (click)="submitForm()">登&nbsp;录</button>
+            </nz-form-control>
+        </nz-form-item>
+    </div>
+    <div class="login-form-other">
+        <button nz-button [nzType]="'link'" style="float: right;" (click)="register()">注册账户</button>
+    </div>
+</div>
+<div class="footer">
+    <div class="links">
+        <a href="_self">帮助</a>
+        <a href="_self">隐私</a>
+        <a href="_self">条款</a>
+    </div>
+    <div class="copyright">
+        Copyright © 2022 宁波易力加运动科技有限公司
+    </div>
+</div>

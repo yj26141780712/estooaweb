@@ -1,0 +1,255 @@
+<nz-layout class="home-layout">
+    <!--侧边栏-->
+    <div *ngIf="setting.fixedSider" class="fixed-sider-stuff"
+        [style.width.px]="isCollapsed?setting.collapsedWidth:setting.siderWidth">
+    </div>
+    <nz-sider [nzTheme]="setting.menuTheme" *ngIf="setting.showSider" [class.fixed-sider]="setting.fixedSider"
+        nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" [nzWidth]="setting.siderWidth"
+        [nzCollapsedWidth]="48" [style.padding-top.px]="setting.showSiderLogo?0:48">
+        <div *ngIf="setting.showSiderLogo" class="sider-logo">
+            <span class="icon">
+                <span></span>
+            </span>
+            <span *ngIf="!isCollapsed" class="text">后台管理系统</span>
+        </div>
+        <div style="flex: 1 1 0%;overflow: hidden auto;">
+            <ul nz-menu [nzTheme]="setting.menuTheme" nzMode="inline">
+                <ng-container *ngTemplateOutlet="menuTpl; context: { $implicit: siderMenus }"></ng-container>
+                <ng-template #menuTpl let-menus>
+                    <ng-container *ngFor="let menu of menus">
+                        <li *ngIf="!menu.children" nz-menu-item [nzPaddingLeft]="paddingLeft*menu.level" nzMatchRouter>
+                            <a [routerLink]="menu.routerLink">
+                                <i nz-icon [nzType]="menu.icon" *ngIf="menu.icon"></i>
+                                <span>{{ menu.title }}</span>
+                            </a>
+                        </li>
+                        <li *ngIf="menu.children" nz-submenu [nzPaddingLeft]="paddingLeft*menu.level"
+                            [nzTitle]="menu.title" [nzIcon]="menu.icon" [(nzOpen)]="menu.open">
+                            <ul>
+                                <ng-container *ngTemplateOutlet="menuTpl; context: { $implicit: menu.children }">
+                                </ng-container>
+                            </ul>
+                        </li>
+                    </ng-container>
+                </ng-template>
+            </ul>
+        </div>
+        <div class="sider-links" (click)="toggleCollapsed()">
+            <span nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></span>
+        </div>
+    </nz-sider>
+    <nz-layout>
+        <!--头部-->
+        <nz-header *ngIf="setting.fixedHeader" style="background-color: transparent;"></nz-header>
+        <nz-header [class.fixed-header]="setting.fixedHeader" [class.sider-header]="setting.siderHeader"
+            [style.width]="setting.headerWidth" [style.z-index]="setting.zIndex99?99:10" style="padding: 0;">
+            <div class="header-main">
+                <div *ngIf="setting.showHeaderLogo&&!setting.showHeadCollapsedButton" class="header-main-left">
+                    <span nz-icon nzIconfont="icon-logo" class="logo"></span>
+                    <span>资料管理平台</span>
+                </div>
+                <div *ngIf="setting.showHeaderLogo&&setting.showHeadCollapsedButton" class="header-main-logo">
+                    <span nz-icon nzIconfont="icon-logo" class="logo"></span>
+                </div>
+                <div *ngIf="setting.showHeadCollapsedButton" class="header-collapsed-button"
+                    (click)="toggleCollapsed()">
+                    <span nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></span>
+                </div>
+                <div class="header-main-center" style="flex: 1 1 0%;">
+                    <!--头部菜单-->
+                    <ul #maincenter *ngIf="setting.showHeaderMenu" nz-menu [nzTheme]="setting.menuTheme"
+                        nzMode="horizontal" class="ant-menu-overflow">
+                        <ng-container *ngTemplateOutlet="menuTpl; context: { $implicit: siderMenus }"></ng-container>
+                        <ng-template #menuTpl let-menus>
+                            <ng-container *ngFor="let menu of menus">
+                                <li *ngIf="!menu.children" nz-menu-item [nzDisabled]="menu.disabled"
+                                    [nzSelected]="menu.selected" [routerLink]="menu.routerLink" nzMatchRouter>
+                                    <i nz-icon [nzType]="menu.icon" *ngIf="menu.icon"></i>
+                                    <span>{{ menu.title }}</span>
+                                </li>
+                                <li *ngIf="menu.children" nz-submenu [nzTitle]="menu.title" [nzIcon]="menu.icon"
+                                    [nzDisabled]="menu.disabled" [ngStyle]="menu.style">
+                                    <ul>
+                                        <ng-container
+                                            *ngTemplateOutlet="menuTpl; context: { $implicit: menu.children }">
+                                        </ng-container>
+                                    </ul>
+                                </li>
+                            </ng-container>
+                        </ng-template>
+                        <li *ngIf="restMenu?.children" nz-submenu [(nzOpen)]="restMenu.open" [nzTitle]="restMenu.title"
+                            [nzIcon]="restMenu.icon" [nzDisabled]="restMenu.disabled" class="ant-menu-item-rest"
+                            [ngStyle]="restMenu.style">
+                            <ul>
+                                <ng-container *ngFor="let menu1 of restMenu.children">
+                                    <li *ngIf="!menu1.children" nz-menu-item [nzDisabled]="menu1.disabled"
+                                        [nzSelected]="menu1.selected" [routerLink]="menu1.routerLink" nzMatchRoute>
+                                        <i nz-icon [nzType]="menu1.icon" *ngIf="menu1.icon"></i>
+                                        <span>{{ menu1.title }}</span>
+                                    </li>
+                                    <li *ngIf="menu1.children" nz-submenu [nzTitle]="menu1.title" [nzIcon]="menu1.icon"
+                                        [nzDisabled]="menu1.disabled" [ngStyle]="menu1.style">
+                                        <ul>
+                                            <li *ngFor="let menu2 of menu1.children" nz-menu-item
+                                                [nzDisabled]="menu2.disabled" [nzSelected]="menu2.selected"
+                                                [routerLink]="menu2.routerLink" nzMatchRoute>
+                                                <i nz-icon [nzType]="menu2.icon" *ngIf="menu2.icon"></i>
+                                                <span>{{ menu2.title }}</span>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ng-container>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="header-main-right">
+                    <!--消息窗口-->
+                    <span nz-dropdown class="user-notice-button" [nzDropdownMenu]="noticeMenu"
+                        [nzPlacement]="'bottomRight'" nzTrigger="click">
+                        <nz-badge [nzCount]="5">
+                            <span nz-icon nzType="bell" class="user-notice-button-icon"></span>
+                        </nz-badge>
+                    </span>
+                    <nz-dropdown-menu #noticeMenu="nzDropdownMenu">
+                        <app-message-box></app-message-box>
+                    </nz-dropdown-menu>
+                    <!--用户信息下拉框-->
+                    <span nz-dropdown class="user-dropmenu" [nzDropdownMenu]="userMenu" [nzPlacement]="'bottomRight'">
+                        <!-- <nz-avatar nzIcon="user" [nzSrc]="userBase?.avatar">
+                        </nz-avatar> -->
+                        <nz-avatar style="background-color: #1890ff" [nzText]="name"></nz-avatar>
+                        <span>{{ userBase?.name || userBase?.username }}</span>
+                    </span>
+                    <nz-dropdown-menu #userMenu="nzDropdownMenu">
+                        <ul nz-menu style="width: 160px;">
+                            <li nz-menu-item class="user-dropmenu-item" (click)="goAccountSetting()">
+                                <span nz-icon nzType="user"></span>
+                                <span>个人设置</span>
+                            </li>
+                            <li nz-menu-item class="user-dropmenu-item" (click)="toggleTheme()">
+                                <span nz-icon nzType="setting"></span>
+                                <span>主题设置</span>
+                            </li>
+                            <li nz-menu-divider></li>
+                            <li nz-menu-item class="user-dropmenu-item" (click)="goLogin()">
+                                <span nz-icon nzType="logout"></span>
+                                <span>退出登录</span>
+                            </li>
+                        </ul>
+                    </nz-dropdown-menu>
+                    <!--国际化下拉框-->
+                    <span nz-dropdown nz-icon class="global-dropmenu" nzType="global" [nzDropdownMenu]="globalMenu"
+                        [nzPlacement]="'bottomRight'">
+                    </span>
+                    <nz-dropdown-menu #globalMenu="nzDropdownMenu">
+                        <ul nz-menu style="width: 160px;">
+                            <li nz-menu-item class="global-dropmenu-item">
+                                <span class="text-icon">CN</span>
+                                <span>简体中文</span>
+                            </li>
+                            <li nz-menu-item class="global-dropmenu-item">
+                                <span class="text-icon">US</span>
+                                <span>English</span>
+                            </li>
+                        </ul>
+                    </nz-dropdown-menu>
+                </div>
+            </div>
+        </nz-header>
+        <div *ngIf="setting.fixedManyTabs" class="fixed-tabs-stuff" style="height: 62px;"
+            [style.width]="setting.siderWidth">
+        </div>
+        <!--选项卡-->
+        <nz-tabset class="home-multi-tabs" *ngIf="setting.showManyTabs" [(nzSelectedIndex)]="tabSelectedIndex"
+            (nzSelectedIndexChange)="tabChangeIndex($event)" [class.fixed-tabs]="setting.fixedManyTabs" nzType="card"
+            style="padding-top: 6px;margin: 0;" [style.width]="setting.manyTabsWidth"
+            [nzTabBarExtraContent]="barExtraContent">
+            <nz-tab *ngFor="let tab of tabs;let i =index" [nzClosable]="i>0">
+                <span class="home-multi-tab-title" (contextmenu)="contextMenu($event, tabRightmenu,i)"
+                    *nzTabLink="let visible = visible" nz-tab-link [routerLink]="tab.routerLink">
+                    {{ tab.title }}
+                    <span *ngIf="tabSelectedIndex===i" nz-icon nzType="reload" class="home-multi-tabs-reload"
+                        [nzSpin]="tabReloading" (click)="reloadTab($event,i)"></span>
+                    <span *ngIf="tabs&&tabs.length>1" nz-icon nzType="close" class="home-multi-tabs-close"
+                        (click)="closeTab($event,i)"></span>
+                </span>
+            </nz-tab>
+            <ng-template #barExtraContent>
+                <span nz-icon nzType="ellipsis" class="tab-button" nz-dropdown [nzDropdownMenu]="tabExtramenu"></span>
+            </ng-template>
+            <!--选项卡右击菜单-->
+            <nz-dropdown-menu #tabRightmenu="nzDropdownMenu">
+                <ul nz-menu>
+                    <li nz-menu-item [nzDisabled]="tabs&&tabs.length===1" (click)="closeOther(rightMenuTabIndex)">关闭其他
+                    </li>
+                    <li nz-menu-item [nzDisabled]="rightMenuTabIndex === 0" (click)="closeToLeft(rightMenuTabIndex)">
+                        关闭到左侧</li>
+                    <li nz-menu-item [nzDisabled]="rightMenuTabIndex === tabs.length-1"
+                        (click)="closeToRight(rightMenuTabIndex)">关闭到右侧
+                    </li>
+                    <li nz-menu-item>刷新当前页</li>
+                </ul>
+            </nz-dropdown-menu>
+            <nz-dropdown-menu #tabExtramenu="nzDropdownMenu">
+                <ul nz-menu>
+                    <li nz-menu-item [nzDisabled]="tabs&&tabs.length===1" (click)="closeOther(tabSelectedIndex)">关闭其他
+                    </li>
+                    <li nz-menu-item>刷新当前页</li>
+                </ul>
+            </nz-dropdown-menu>
+        </nz-tabset>
+        <nz-content class="outer-content">
+            <router-outlet></router-outlet>
+        </nz-content>
+        <!-- <nz-content class="outer-content" [@routeAnimations]="prepareRoute(outlet)">
+            <router-outlet #outlet="outlet"></router-outlet>
+        </nz-content> -->
+        <nz-footer>
+            <div class="copyright">Copyright © 2022 宁波易力加运动科技有限公司</div>
+        </nz-footer>
+    </nz-layout>
+</nz-layout>
+<!--抽屉菜单-->
+<nz-drawer [nzClosable]="false" [nzTitle]="undefined" nzPlacement="left"
+    [nzVisible]="!isCollapsed&&setting.showDrawerMenu" (nzOnClose)="closeDrawerMenu()"
+    [nzBodyStyle]="{height:'100%',padding:0}" [nzWidth]="setting.siderWidth">
+    <ng-container *nzDrawerContent>
+        <nz-sider *ngIf="setting.showDrawerMenu" [nzTheme]="setting.menuTheme" [class.fixed-sider]="true" nzCollapsible
+            [nzTrigger]="null" [nzWidth]="setting.siderWidth" [nzCollapsedWidth]="48">
+            <div class="sider-logo">
+                <span class="icon">
+                    <span nz-icon nzIconfont="icon-logo" W></span>
+                </span>
+                <span *ngIf="!isCollapsed" class="text">资料管理平台</span>
+            </div>
+            <div style="flex: 1 1 0%;overflow: hidden auto;">
+                <ul nz-menu [nzTheme]="setting.menuTheme" nzMode="inline"
+                    [nzInlineIndent]="isCollapsed?setting.collapsedWidth:setting.siderWidth">
+                    <ng-container *ngTemplateOutlet="menuTpl; context: { $implicit: siderMenus }"></ng-container>
+                    <ng-template #menuTpl let-menus>
+                        <ng-container *ngFor="let menu of menus">
+                            <li *ngIf="!menu.children" nz-menu-item [nzPaddingLeft]="menu.level * paddingLeft"
+                                [nzDisabled]="menu.disabled" [nzSelected]="menu.selected" [routerLink]="menu.routerLink"
+                                nzMatchRouter>
+                                <i nz-icon [nzType]="menu.icon" *ngIf="menu.icon"></i>
+                                <span>{{ menu.title }}</span>
+                            </li>
+                            <li *ngIf="menu.children" nz-submenu [nzPaddingLeft]="menu.level * paddingLeft"
+                                [(nzOpen)]="menu.open" [nzTitle]="menu.title" [nzIcon]="menu.icon"
+                                [nzDisabled]="menu.disabled">
+                                <ul>
+                                    <ng-container *ngTemplateOutlet="menuTpl; context: { $implicit: menu.children }">
+                                    </ng-container>
+                                </ul>
+                            </li>
+                        </ng-container>
+                    </ng-template>
+                </ul>
+            </div>
+            <div (click)="toggleCollapsed()">
+            </div>
+        </nz-sider>
+    </ng-container>
+</nz-drawer>
+<app-kefu [hidden]="hidden"></app-kefu>

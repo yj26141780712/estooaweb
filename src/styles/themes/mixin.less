@@ -1,0 +1,32 @@
+.themeMixin(@rules) {
+    html {
+      &.default {
+        @import './default.less';
+        @rules();
+      }
+      &.dark {
+        @import './dark.less';
+        @rules();
+      }
+      &.red {
+        @import './red.less';
+        @rules();
+      }
+    }
+  }
+
+.scrollbar(@width:6px) {
+    &::-webkit-scrollbar {
+      height: @width;
+      width: @width;
+    }
+    &::-webkit-scrollbar-track {
+      -webkit-box-shadow: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      border-radius: (@width/2);
+      background-color: #bfbfbf;
+    }
+}
+
+  

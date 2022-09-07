@@ -1,0 +1,24 @@
+<div class="send-bar">
+    <span nz-icon nzType="smile" title="发表情" nz-popover [(nzPopoverVisible)]="visible" nzPopoverTrigger="click"
+        [nzPopoverContent]="contentTemplate">
+    </span>
+    <ng-template #contentTemplate>
+        <div class="emojis">
+            <div class="emoji" *ngFor="let item of emojiName" (click)="chooseEmoji(item)">
+                <img [src]="emojiUrl(item)" height="30px" width="30px">
+            </div>
+        </div>
+    </ng-template>
+    <span nz-icon nzType="picture" title="发图片" (click)="handleSendImage()"></span>
+    <span nz-icon nzType="camera" title="发视频" (click)="handleSendVideo()"></span>
+    <span nz-icon nzType="file" title="发文件" (click)="handleSendFile()"></span>
+</div>
+<div class="send-input">
+    <textarea #input class="text-input" [(ngModel)]="message" id="remark" name="remark">
+    </textarea>
+    <span class="icon" nz-icon nzType="send" nz-tooltip nzTooltipTitle="按Enter发送消息,ctrl+Enter换行"
+        nzTooltipPlacement="left" (click)="handleEnter()"></span>
+    <input type="file" #img accept=".jpg,.jpeg,.png,.gif,.bmp" style="display: none;" (change)="sendImage()">
+    <input type="file" #video accept=".mp4" style="display: none;" (change)="sendVideo()">
+    <input type="file" #file style="display:none;" (change)="sendFile()">
+</div>

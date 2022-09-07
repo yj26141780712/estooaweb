@@ -1,0 +1,75 @@
+<div class="page-container menu">
+    <div class="table-body" #tableBody>
+        <div class="table-tools">
+            <div class="table-tools-left">
+
+            </div>
+            <div class="table-tools-right">
+                <div class="table-tools-setting-item">
+                    <span nz-icon nzType="reload" nz-tooltip nzTooltipTitle="刷新" (click)="refresh()"></span>
+                </div>
+                <div class="table-tools-setting-item">
+                    <span nz-icon nzType="column-height" nz-tooltip nzTooltipTitle="密度" nz-dropdown
+                        [nzDropdownMenu]="menu" [nzTrigger]="'click'" [nzPlacement]="'bottomRight'"></span>
+                    <nz-dropdown-menu #menu="nzDropdownMenu">
+                        <ul nz-menu nzSelectable style="width: 80px;">
+                            <li nz-menu-item (click)="setSize('default')">默认</li>
+                            <li nz-menu-item (click)="setSize('middle')">中等</li>
+                            <li nz-menu-item (click)="setSize('small')">紧凑</li>
+                        </ul>
+                    </nz-dropdown-menu>
+                </div>
+                <div class="table-tools-setting-item">
+                    <span nz-icon nzType="setting" nz-tooltip nzTooltipTitle="列设置" nz-popover
+                        [nzPopoverTitle]="titleTemplate" [nzPopoverContent]="contentTemplate"
+                        [nzPopoverTrigger]="'click'" [nzPopoverPlacement]="'bottomRight'"></span>
+                    <ng-template #titleTemplate>
+                        <div class="table-column-setting-list">
+                            <label nz-checkbox [(ngModel)]="allChecked" [nzIndeterminate]="indeterminate"
+                                (ngModelChange)="updateAllChecked()">列展示</label>
+                            <a (click)="resetColumns($event)">重置</a>
+                        </div>
+                    </ng-template>
+                    <ng-template #contentTemplate>
+                        <div class="table-column-setting-item" *ngFor="let column of columns">
+                            <label nz-checkbox [(ngModel)]="column.checked"
+                                (ngModelChange)="updateSingleChecked()">{{column.title}}</label>
+                        </div>
+                    </ng-template>
+                </div>
+                <div class="table-tools-setting-item">
+                    <span nz-icon [nzType]="getFullscreen()?'fullscreen-exit':'fullscreen'" nz-tooltip
+                        nzTooltipTitle="放大" (click)="fullscreen()"></span>
+                </div>
+            </div>
+        </div>
+        <nz-table #nzTable [nzData]="tableData" nzBordered [nzLoading]="loading" [nzSize]="tableSize"
+            [nzPageSize]="pageSize" [nzFrontPagination]="false" [nzTotal]="total" [nzPageIndex]="pageNum"
+            (nzQueryParams)="onQueryParamsChange($event)">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <ng-container *ngFor="let column of columns">
+                        <th *ngIf="column.checked" [nzColumnKey]="column.key" [nzShowFilter]="column.showFilter"
+                            [nzFilters]="column.filters || []" [nzShowSort]="column.showSort" [nzFilterFn]="true"
+                            [nzSortFn]="true" [nzSortPriority]="true">
+                            {{ column.title }}
+                        </th>
+                    </ng-container>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let item of nzTable.data;let i = index">
+                    <tr *ngIf="(item.parent && item.parent.expand) || !item.parent">
+                        <td>{{ i+1 }}</td>
+                        <ng-container *ngFor="let column of columns">
+                            <td *ngIf="column.checked">
+                                {{ column.change?column.change(item[column.key]):item[column.key] }}
+                            </td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </nz-table>
+    </div>
+</div>

@@ -1,0 +1,76 @@
+<div class="kefu-form">
+    <div class="form-header">
+        <div class="left">
+            <nz-avatar [nzSize]="28" nzIcon="user" [nzSrc]="info?.avatar">
+            </nz-avatar>
+            <span>{{ info?.nick }}</span>
+            <a nz-dropdown [nzDropdownMenu]="menu">
+                在线
+                <i nz-icon nzType="down"></i>
+            </a>
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+                <ul nz-menu nzSelectable>
+                    <li *ngFor="let status of statuss" nz-menu-item class="status-item"
+                        (click)="switchUserStatus(status.value)">
+                        {{ status.label }}
+                    </li>
+                </ul>
+            </nz-dropdown-menu>
+        </div>
+        <div class="right">
+            <span nz-icon nzType="close" (click)="close()"></span>
+        </div>
+    </div>
+    <div class="form-body">
+        <div class="left">
+            <div class="chart-header">
+                <div class="chart-header-item" [class.active]="sessionStatus==='online'"
+                    (click)="changeSessionStatus('online')">
+                    <span class="label">会话中</span>
+                    <span class="num" *ngIf="onlineNoReadCount">{{ onlineNoReadCount }}</span>
+                </div>
+                <div class="chart-header-item" [class.active]="sessionStatus==='waiting'"
+                    (click)="changeSessionStatus('waiting')">
+                    <span class="label">排队中</span>
+                    <span class="num" *ngIf="waitingNoReadCount">{{ waitingNoReadCount }}</span>
+                </div>
+                <div class="chart-header-item" [class.active]="sessionStatus==='history'"
+                    (click)="changeSessionStatus('history')">
+                    <span class="label">历史记录</span>
+                    <span class="num" *ngIf="historyNoReadCount">{{ historyNoReadCount }}</span>
+                </div>
+            </div>
+            <div class="chart-header-container">
+                <app-kefu-session-list #sessionList *ngIf="sessionStatus==='online'" [list]="onlines"
+                    [conversationID]="conversationID" [onClose]="onOnlineClose" [onSelect]="onSelect">
+                </app-kefu-session-list>
+                <app-kefu-session-list #sessionList *ngIf="sessionStatus==='waiting'" [list]="waitings"
+                    [conversationID]="conversationID" [onClose]="onWaitingClose" [onSelect]="onSelect"
+                    [onAdd]="waitingAdd" [showAdd]="true">
+                </app-kefu-session-list>
+                <app-kefu-session-list #sessionList *ngIf="sessionStatus==='history'" [list]="histories"
+                    [conversationID]="conversationID" [onClose]="onHistoryClose" [onSelect]="onSelect"
+                    [onAdd]="historyAdd" [showAdd]="true">
+                </app-kefu-session-list>
+            </div>
+        </div>
+        <div class="right">
+            <nz-empty *ngIf="!conversationID" class="chart-container empty"
+                nzNotFoundImage="https://demo.shopro.top/assets/addons/shopro/img/chat/chat-icon.png"
+                [nzNotFoundContent]="contentTpl">
+                <ng-template #contentTpl>
+                    <span>
+                        暂时没有会话哦!
+                    </span>
+                </ng-template>
+            </nz-empty>
+            <div *ngIf="conversationID" class="chart-container">
+                <app-kefu-message-list [list]="messageList" [isCompleted]="isCompleted">
+                </app-kefu-message-list>
+            </div>
+            <div *ngIf="conversationID" class="chart-send-container">
+                <app-message-send-box></app-message-send-box>
+            </div>
+        </div>
+    </div>
+</div>

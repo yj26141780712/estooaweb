@@ -1,0 +1,55 @@
+table {
+    width: 100%;
+    th,
+    td {
+        padding: 0 8px;
+        border: 1px solid #f0f0f0;
+    }
+}
+
+.product-box {
+    padding: 8px 12px;
+    display: flex;
+    img {
+        margin-right: 14px;
+    }
+    .order-type {
+        display: inline-block;
+        height: 20px;
+        line-height: 20px;
+        color: #fff;
+        border-radius: 4px;
+        padding: 0 10px;
+        font-size: 12px;
+    }
+    .rent {
+        background-color: #2f54eb;
+    }
+
+    .relet {
+        background-color: #52c41a;
+    }
+}
+
+.send-address {
+    padding: 0 20px;
+    margin-top: 20px;
+    display: flex;
+    color: #666;
+    &-detail {
+        margin-left: 10px;
+        > div {
+            height: 40px;
+        }
+    }
+}
+
+.send-express {
+    display: flex;
+    padding: 0 20px;
+    > div {
+        width: 50%;
+        display: flex;
+        align-items: center;
+    }
+}

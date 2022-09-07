@@ -1,0 +1,223 @@
+@import 'mixin';
+
+.sider-logo{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 64px;
+  width: 100%;
+  font-size: 16px;
+  overflow: hidden;
+  padding-right: 16px;
+  span.icon {
+    height: 24px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  span.text{
+    font-size: 14px;
+  }
+}
+
+.fixed-sider-stuff{
+  overflow: hidden;
+}
+
+.fixed-sider{
+  position: fixed;
+  top:0;
+  left: 0;
+  z-index: 11;
+  height: 100%;
+}
+
+.sider-links{
+  padding-left: 16px;
+  height: 40px;
+  line-height: 40px;
+  margin: 4px 0;
+  cursor: pointer;
+}
+
+
+.header-main{
+  display: flex;
+  height: 100%;
+  padding-left: 12px;
+  &-left{
+    min-width: 186px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    span{
+      font-size: 16px;
+    }
+    span[nz-icon]{
+      font-size: 72px;
+      margin-right: 6px;
+    }
+  }
+  &-logo{
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    span[nz-icon]{
+      font-size: 72px;
+      margin-right: 6px;
+    }
+  }
+  &-center{
+    height: 100%;
+    overflow: hidden;
+    ul{
+      height: 100%;
+      white-space: nowrap;
+    }
+  }
+  &-right{
+    //min-width: 208px;
+    padding-right: 12px;
+  }
+  .header-collapsed-button{
+    margin-left: 16px;
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    cursor: pointer;
+  }
+} 
+
+.user-notice-button{
+  cursor: pointer;
+  &-icon{
+    padding: 4px;
+    font-size: 16px;
+  }
+}
+
+
+
+.user-dropmenu{
+  nz-avatar{
+    margin:6px 0 6px 0;
+    vertical-align: top;
+  }
+  &-item{
+    span[nz-icon] {
+      margin-right: 8px;
+    }
+  }
+}
+
+.global-dropmenu{
+  &-item{
+    .text-icon{
+      font-size: 12px;
+      margin-right: 8px;
+    }
+  }
+}
+
+.fixed-header{
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1;
+}
+
+nz-tabset{
+  background-color: #fff;
+  height: 62px;
+  &.fixed-tabs{
+    position: fixed;
+    top: 48px;
+    right: 0;
+    z-index:10;
+    height: 62px;
+    transition: width .2s;
+  }
+}
+
+.tab-button{
+  margin-right: 8px;
+  padding: 12px;
+  font-size: 16px;
+  transform: rotate(90deg);
+  cursor: pointer;
+}
+
+.home-multi-tab-title{
+  padding: 0 16px;
+  .home-multi-tabs-reload,
+  .home-multi-tabs-close{
+  margin-right: 0;
+  margin-left: 8px;
+  font-size: 12px;
+  color: rgba(0,0,0,.45);
+  }
+}
+
+
+
+.outer-content{
+  position: relative;
+  margin: 12px;
+}
+
+@media screen and(min-width:768px) {
+  .outer-content{
+    margin: 24px;
+  }
+}
+
+.setting-drawer-handle {
+  position: fixed;
+  top: 239px;
+  right: 0;
+  height: 48px;
+  width: 48px;
+  font-size: 16px;
+  border-radius: 4px 0 0 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  span {
+    color: #fff;
+    font-size: 20px;
+  }
+}
+
+.ant-menu-overflow{
+  display: flex;
+}
+
+.themeMixin({
+  :host {
+    .setting-drawer-handle {
+      background-color: @primary-color;
+    }
+  }
+});
+
+:host ::ng-deep {
+  .home-multi-tabs .ant-tabs-nav {
+    padding-left: 16px;
+  }
+  .ant-layout-header {
+    .ant-dropdown-trigger {
+      padding: 0 12px;
+      display: inline-block;
+      height: 48px;
+      line-height: 48px;
+      vertical-align: top;
+      cursor: pointer;
+      &:hover{
+        background-color: rgba(0,0,0,.025);
+      }
+    }
+  }
+}

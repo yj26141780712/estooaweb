@@ -1,0 +1,130 @@
+<div class="form-container">
+    <div class="order-title">
+        <span>
+            订单号：{{ detail.orderSn }}
+        </span>
+        <span style="margin-left: 20px;">
+            下单时间：{{ detail.createTime }}
+        </span>
+    </div>
+    <div class="order-msg">
+        <div nz-row [nzGutter]="[12,12]">
+            <div nz-col nzSpan="12">
+                <div class="status-tip">
+                    {{detail.statusDesc}}
+                </div>
+            </div>
+            <div nz-col nzSpan="12">
+                <div class="item">
+                    <span>商品总价</span>
+                    <span>￥{{ detail.amount }}</span>
+                </div>
+                <div class="item">
+                    <span>配送费</span>
+                    <span>￥{{ detail.dispatchAmount }}</span>
+                </div>
+                <div class="item">
+                    <span>订单金额</span>
+                    <span class="money">￥{{ detail.payFee }}</span>
+                </div>
+            </div>
+            <div nz-col nzSpan="24">
+                <div style="padding: 0 30px;">
+                    <nz-steps [nzCurrent]="current" nzLabelPlacement="vertical">
+                        <nz-step [nzTitle]="step.text" [nzDescription]="convertDate(step.time)"
+                            *ngFor="let step of steps">
+                        </nz-step>
+                    </nz-steps>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="delivery-msg">
+        <div nz-row>
+            <div nz-col nzSpan="24">
+                <div class="item item-title">
+                    收货信息
+                </div>
+                <div class="item">
+                    <span>收货人：</span>
+                    <span>{{ detail.realname }}</span>
+                </div>
+                <div class="item">
+                    <span>联系电话：</span>
+                    <span>{{ detail.phone }}</span>
+                </div>
+                <div class="item">
+                    <span>收货地址：</span>
+                    <span>{{ address }}</span>
+                </div>
+            </div>
+            <div nz-col nzSpan="12">
+                <div class="item item-title">
+                    付款信息
+                </div>
+                <div class="item">
+                    <span>实付金额：</span>
+                    <span>{{ detail.payFee }}</span>
+                </div>
+                <div class="item">
+                    <span>付款方式：</span>
+                    <span>{{ detail.payType }}</span>
+                </div>
+                <div class="item">
+                    <span>付款时间：</span>
+                    <span>{{ convertDate(detail.payTime) }}</span>
+                </div>
+            </div>
+            <div nz-col nzSpan="12">
+                <div class="item item-title">
+                    下单用户
+                </div>
+                <div class="item">
+                    <span>ID：</span>
+                    <span>{{ detail.account?detail.account.id:'' }}</span>
+                </div>
+                <div class="item">
+                    <span>昵称：</span>
+                    <span>{{ detail.account?detail.account.nickname:'' }}</span>
+                </div>
+                <div class="item">
+                    <span>联系方式：</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="product-msg">
+        <nz-table #nzTable [nzData]="detail.orderProduct" [nzShowPagination]="false" nzBordered>
+            <thead>
+                <tr>
+                    <th>商品</th>
+                    <th>单价(元)</th>
+                    <th>数量</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of nzTable.data">
+                    <td>
+                        <div class="product-box">
+                            <img nz-image width="50px" height="50px" [nzSrc]="item.productImage" alt="" />
+                            <div>
+                                <div style="margin-bottom: 10px;">
+                                    <span>{{ item.productTitle }}</span>
+                                </div>
+                                <div style="color:#999">
+                                    <span style="margin-right: 8px;color: #999;">规格：{{item.productUnitName}}</span>
+                                    <span *ngIf="item.productType==='rent'" style="margin-right: 8px;"
+                                        class="order-type rent">租借</span>
+                                    <span *ngIf="item.productType==='relet'" style="margin-right: 8px;"
+                                        class="order-type relet">续租</span>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>{{ item.productPrice }}</td>
+                    <td>{{ item.productNum }}</td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+</div>

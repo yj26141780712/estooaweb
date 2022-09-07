@@ -1,0 +1,46 @@
+<div class="page-form-container">
+    <nz-collapse nzGhost>
+        <nz-collapse-panel [nzHeader]="'基础信息'" [nzActive]="true">
+            <form nz-form [formGroup]="formGroup">
+                <div nz-row [nzGutter]="[12,12]" style="padding-bottom: 60px;">
+                    <div nz-col *ngFor="let item of formItems;" [nzXs]="24" [nzSm]="12" [nzMd]="8" [nzLg]="6">
+                        <nz-form-item>
+                            <nz-form-label [nzSm]="8" [nzXs]="24" [nzRequired]="item.required">{{ item.label }}
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="errTip">
+                                <ng-container [ngSwitch]="item.type">
+                                    <input nz-input *ngSwitchCase="'input'" [formControlName]="item.name">
+                                    <nz-input-number *ngSwitchCase="'input-number'" [formControlName]="item.name"
+                                        [nzMin]="item.config?.min" [nzMax]="item.config?.max"
+                                        [nzStep]="item.config?.step">
+                                    </nz-input-number>
+                                    <nz-select *ngSwitchCase="'select'" [formControlName]="item.name">
+                                        <nz-option *ngFor="let option of item.options" [nzValue]="option.value"
+                                            [nzLabel]="option.label"></nz-option>
+                                    </nz-select>
+                                    <nz-date-picker *ngSwitchCase="'date'" [formControlName]="item.name"
+                                        [nzShowTime]="item.config?.showTime" [nzFormat]="item.config?.format">
+                                    </nz-date-picker>
+                                    <nz-cascader *ngSwitchCase="'cascader'" [nzOptions]="item.options"
+                                        [formControlName]="item.name"></nz-cascader>
+                                </ng-container>
+                                <ng-template #errTip let-control>
+                                    <ng-container *ngIf="control.hasError('required')">
+                                        {{ item.errors?.required }}
+                                    </ng-container>
+                                    <ng-container *ngIf="control.hasError('pattern')">
+                                        {{ item.errors?.required }}
+                                    </ng-container>
+                                </ng-template>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
+            </form>
+        </nz-collapse-panel>
+    </nz-collapse>
+
+</div>
+<div class="page-form-footer">
+    <button class="button" nz-button nzType="primary" (click)="submit()">提交</button>
+</div>

@@ -1,0 +1,9 @@
+<div *ngIf="isMine&&messageReadByPeer" class="message-status">
+    <span>{{ messageReadByPeer }}</span>
+</div>
+<div *ngIf="!message.isRevoked" class="message-content" [ngClass]="getClass()">
+    <ng-content></ng-content>
+</div>
+<div class="group-tip-element-warpper" *ngIf="message.isRevoked">
+    {{ text }}
+</div>

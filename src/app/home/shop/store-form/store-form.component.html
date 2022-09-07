@@ -1,0 +1,131 @@
+<div class="form-container">
+    <form nz-form [formGroup]="formGroup">
+        <nz-form-item>
+            <nz-form-label nzSm="5" nzXs="24" nzRequired>门店名称</nz-form-label>
+            <nz-form-control nzSm="16" nzXs="24" nzErrorTip="请输入门店名称">
+                <input type="text" nz-input formControlName="name" placeholder="请输入门店名称">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzSm="5" nzXs="24">门店图片</nz-form-label>
+            <nz-form-control nzSm="16" nzXs="24">
+                <div class="upload-list">
+                    <div *ngIf="image" class="upload-list-item">
+                        <div class="image-container">
+                            <img nz-image width="60px" height="60px" [nzDisablePreview]="true" [nzSrc]="image.url" />
+                            <div class="image-tools">
+                                <span nz-icon nzType="eye" title="预览" (click)="preview($event)"></span>
+                                <span nz-icon nzType="delete" title="删除" (click)="delete($event)"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="upload-list-item">
+                        <div class="add-img" (click)="addImg()">
+                            <span nz-icon nzType="plus"></span>
+                        </div>
+                    </div>
+                </div>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzSm="5" nzXs="24" nzRequired>联系人</nz-form-label>
+            <nz-form-control nzSm="16" nzXs="24" nzErrorTip="请输入联系人">
+                <input type="text" nz-input formControlName="realname" placeholder="请输入联系人">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzSm="5" nzXs="24" nzRequired>联系方式</nz-form-label>
+            <nz-form-control nzSm="16" nzXs="24" nzErrorTip="请输入联系方式">
+                <input type="text" nz-input formControlName="phone" placeholder="请输入联系方式">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzSm="5" nzXs="24" nzRequired>门店地址</nz-form-label>
+            <nz-form-control nzSm="16" nzXs="24" nzErrorTip="请选择门店地址">
+                <nz-cascader [nzOptions]="areaOptions" formControlName="areaIds" [nzPlaceHolder]="'请选择门店地址'"
+                    [nzShowSearch]="true">
+                </nz-cascader>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzSm="5" nzXs="24">详细地址</nz-form-label>
+            <nz-form-control nzSm="16" nzXs="24" nzErrorTip="请输入详细地址">
+                <input type="text" nz-input formControlName="address" placeholder="请输入详细地址">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzSm="5" nzXs="24" nzRequired>添加管理员</nz-form-label>
+            <nz-form-control nzSm="16" nzXs="24" nzErrorTip="请添加管理员">
+                <nz-select nzMode="multiple" nzPlaceHolder="请输入手机号码搜索，添加管理员" nzAllowClear nzShowSearch nzServerSearch
+                    (nzOnSearch)="onSearch($event)" formControlName="accountIds">
+                    <ng-container *ngFor="let o of accountList">
+                        <nz-option *ngIf="!isSelectLoading" [nzValue]="o.id" [nzLabel]="o.phone"></nz-option>
+                    </ng-container>
+                    <nz-option *ngIf="isSelectLoading" nzDisabled nzCustomContent>
+                        <i nz-icon nzType="loading" class="loading-icon"></i>
+                        Loading Data...
+                    </nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzSm="5" nzXs="24" nzRequired>支持配送方式</nz-form-label>
+            <nz-form-control nzSm="16" nzXs="24">
+                <label nz-checkbox formControlName="store">商家配送</label>
+                <label nz-checkbox formControlName="selfetch">到店/自提</label>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzSm="5" nzXs="24" nzRequired>配送范围</nz-form-label>
+            <nz-form-control nzSm="16" nzXs="24" nzErrorTip="请选择服务区域">
+                <div>
+                    {{ formGroup.value['serviceAreaText'] }}
+                </div>
+                <div>
+                    <a (click)="select($event)">选择服务区</a>
+                </div>
+                <div class="form-tip">
+                    收货地址在配送范围之外将不可见
+                </div>
+                <div style="display: none;">
+                    <input type="text" formControlName="serviceAreaText">
+                </div>
+            </nz-form-control>
+
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzSm="5" nzXs="24" nzRequired>营业时间</nz-form-label>
+            <nz-form-control nzSm="16" nzXs="24" nzErrorTip="请选择营业时间">
+                <nz-time-picker nzFormat="HH:mm" formControlName="startHour" [nzDisabledHours]="startDisabledHours"
+                    [nzDisabledMinutes]="startDisabledMinutes">
+                </nz-time-picker>
+                <span style="margin:0 8px">至</span>
+                <nz-time-picker nzFormat="HH:mm" formControlName="endHour" [nzDisabledHours]="endDisabledHours"
+                    [nzDisabledMinutes]="endDisabledMinutes"></nz-time-picker>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzSm="5" nzXs="24" [nzNoColon]="true"></nz-form-label>
+            <nz-form-control nzSm="19" nzXs="24">
+                <nz-checkbox-wrapper>
+                    <div nz-row>
+                        <div nz-col nzSpan="6" *ngFor="let item of weekOptions">
+                            <label nz-checkbox [(nzChecked)]="item.checked" [nzValue]="item.value">
+                                {{ item.label }}
+                            </label>
+                        </div>
+                    </div>
+                </nz-checkbox-wrapper>
+                <div style="display: none;">
+                    <input type="text" formControlName="openWeeks">
+                </div>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+</div>
+<div *nzModalFooter>
+    <nz-space>
+        <button nz-button (click)="cancel()">取消</button>
+        <button nz-button nzType="primary" [nzLoading]="loading" (click)="submitForm()">确定</button>
+    </nz-space>
+</div>

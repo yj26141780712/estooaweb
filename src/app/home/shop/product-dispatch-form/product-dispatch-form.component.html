@@ -1,0 +1,40 @@
+<div class="form-container">
+    <form nz-form [formGroup]="formGroup">
+        <nz-form-item>
+            <nz-form-label nzSm="5" nzXs="24" nzRequired>标题</nz-form-label>
+            <nz-form-control nzSm="16" nzXs="24" nzErrorTip="请输入标题">
+                <input type="text" nz-input formControlName="title" placeholder="请输入标题">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzSm="5" nzXs="24" nzRequired>配送方式</nz-form-label>
+            <nz-form-control nzSm="16" nzXs="24">
+                <nz-checkbox-wrapper style="width: 100%;" (nzOnChange)="dispatchTypeChange($event)">
+                    <div nz-row>
+                        <div nz-col nzSpan="6" *ngFor="let type of dispatchTypes">
+                            <label nz-checkbox [(nzChecked)]="type.checked" [nzValue]="
+                                type.value">{{type.label}}</label>
+                        </div>
+                    </div>
+                </nz-checkbox-wrapper>
+            </nz-form-control>
+        </nz-form-item>
+        <ng-container *ngFor="let type of dispatchTypes">
+            <nz-form-item *ngIf="type.checked">
+                <nz-form-label nzSm="5" nzXs="24" nzRequired>{{ type.label }}</nz-form-label>
+                <nz-form-control nzSm="16" nzXs="24" [nzErrorTip]="'请选择'+type.remark">
+                    <nz-select [formControlName]="type.value" [nzPlaceHolder]="'请选择'+type.label">
+                        <nz-option *ngFor="let item of type.items" [nzValue]="item.id" [nzLabel]="item.name">
+                        </nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+        </ng-container>
+    </form>
+</div>
+<div *nzModalFooter>
+    <nz-space>
+        <button nz-button (click)="cancel()">取消</button>
+        <button nz-button nzType="primary" [nzLoading]="loading" (click)="submitForm()">确定</button>
+    </nz-space>
+</div>

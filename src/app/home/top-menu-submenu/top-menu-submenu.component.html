@@ -1,0 +1,9 @@
+<li nz-submenu [nzTitle]="menu.title" [nzIcon]="menu.icon" [nzDisabled]="menu.disabled" [ngStyle]="menu.style">
+    <ul>
+        <ng-container *ngFor="let menu of menu.children">
+            <li *ngIf="!menu.children" nz-menu-item></li>
+            <li *ngIf="menu.children" app-top-menu-submenu [menu]="menu">
+            </li>
+        </ng-container>
+    </ul>
+</li>

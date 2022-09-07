@@ -1,0 +1,49 @@
+.login-title {
+    font-size: 33px;
+    text-align: center;
+}
+
+.login-desc {
+    font-size: 14px;
+    margin-top: 12px;
+    margin-bottom: 40px;
+    color: rgba(0, 0, 0, 0.45);
+    text-align: center;
+}
+
+.main {
+    width: 368px;
+    margin: 0 auto;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin: 48px 0 24px;
+    width: 100%;
+    .links {
+        margin-bottom: 8px;
+        text-align: center;
+        a {
+            color: rgba(0, 0, 0, 0.45);
+            &:not(:last-child) {
+                margin-right: 40px;
+            }
+        }
+    }
+    .copyright {
+        color: rgba(0, 0, 0, 0.45);
+        text-align: center;
+    }
+}
+
+.login-form-other {
+    margin-top: 24px;
+    height: 32px;
+}
+
+.prefix-icon {
+    color: #1890ff;
+    font-size: 14px;
+}

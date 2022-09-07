@@ -1,0 +1,42 @@
+<nz-input-group *ngIf="showSearch" [nzPrefix]="suffixIcon">
+    <input type="text" nz-input [placeholder]="placeholder" [(ngModel)]="searchValue"
+        (ngModelChange)="searchValue$.next($event)" />
+</nz-input-group>
+<ng-template #suffixIcon>
+    <i nz-icon nzType="search"></i>
+</ng-template>
+<nz-tree-view [nzTreeControl]="treeControl" [nzDataSource]="dataSource" [nzDirectoryTree]="true" nzNoAnimation>
+    <nz-tree-node *nzTreeNodeDef="let node" nzTreeNodePadding>
+        <nz-tree-node-toggle nzTreeNodeNoopToggle></nz-tree-node-toggle>
+        <nz-tree-node-checkbox *ngIf="showCheckbox" [nzDisabled]="node.disabled"
+            [nzChecked]="checklistSelection.isSelected(node)" (nzClick)="leafItemSelectionToggle(node)">
+        </nz-tree-node-checkbox>
+        <nz-tree-node-option [nzDisabled]="node.disabled" [nzSelected]="selectListSelection.isSelected(node)"
+            (nzClick)="leafItemSelectionToggle(node)">
+            <ng-template [ngTemplateOutlet]="treeTemplate" [ngTemplateOutletContext]="{ $implicit: node }">
+            </ng-template>
+            <ng-container *ngIf="!treeTemplate">
+                <i nz-icon [nzType]="icon" nzTheme="outline"></i>
+                <span [innerHTML]="node.name | nzHighlight: searchValue:'i':'highlight'"></span>
+            </ng-container>
+        </nz-tree-node-option>
+    </nz-tree-node>
+    <nz-tree-node *nzTreeNodeDef="let node; when: hasChild" nzTreeNodePadding>
+        <nz-tree-node-toggle>
+            <i nz-icon nzType="caret-down" nzTreeNodeToggleRotateIcon></i>
+        </nz-tree-node-toggle>
+        <nz-tree-node-checkbox *ngIf="showCheckbox" [nzDisabled]="node.disabled"
+            [nzChecked]="descendantsAllSelected(node)" [nzIndeterminate]="descendantsPartiallySelected(node)"
+            (nzClick)="itemSelectionToggle(node)">
+        </nz-tree-node-checkbox>
+        <nz-tree-node-option [nzDisabled]="node.disabled" [nzSelected]="selectListSelection.isSelected(node)"
+            (nzClick)="itemSelectionToggle(node)">
+            <ng-template [ngTemplateOutlet]="treeTemplate" [ngTemplateOutletContext]="{ $implicit: node }">
+            </ng-template>
+            <ng-container *ngIf="!treeTemplate">
+                <i nz-icon [nzType]="icon" nzTheme="outline"></i>
+                <span [innerHTML]="node.name | nzHighlight: searchValue:'i':'highlight'"></span>
+            </ng-container>
+        </nz-tree-node-option>
+    </nz-tree-node>
+</nz-tree-view>

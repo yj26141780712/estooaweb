@@ -1,0 +1,8 @@
+<app-message-bubble [isMine]="isMine" [message]="message">
+    <ng-container *ngFor="let item of contentList;let index = index">
+        <span class="text-box" *ngIf="item.name === 'text'">
+            {{item.text}}
+        </span>
+        <img *ngIf="item.name === 'img'" height="20px" width="20px" [src]="item.src">
+    </ng-container>
+</app-message-bubble>

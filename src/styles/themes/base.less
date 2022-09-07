@@ -1,0 +1,113 @@
+@layout-header-height:48px;
+@table-tool-height:50px;
+@tabs-horizontal-padding: @padding-sm @padding-md;
+
+// table
+@table-padding-vertical: 9px;
+@table-padding-horizontal: 9px;
+
+// .page-container{
+//   background-color: #fff;
+// }
+
+//主页侧边栏
+.ant-layout-sider {
+  .ant-layout-sider-children{
+    display: flex;
+    flex-direction: column;
+    height: 100%
+  }
+}
+
+.ant-layout-sider-collapsed{
+  .sider-logo {
+    padding-right: 0 !important;
+    span.icon{
+      font-size: 40px !important;
+      display: none !important;
+    }
+  } 
+}
+
+.ant-layout-sider-children .ant-menu.ant-menu-inline-collapsed{
+  width: 48px;
+}
+
+.ant-layout-sider .ant-menu-inline-collapsed .ant-menu-item {
+  width: 48px;
+  padding: 0 16px!important
+}
+
+.ant-layout-sider .ant-menu-inline-collapsed .ant-menu-item-title {
+  display: none
+}
+
+.ant-layout-sider .ant-menu-inline-collapsed .ant-menu-submenu-title {
+  width: 48px;
+  padding: 0 16px!important
+}
+
+.ant-layout-footer{
+  .copyright{
+  
+  }
+}
+
+.highlight {
+  color: red;
+}
+
+// 主页选项卡
+.home-multi-tabs.ant-tabs-card {
+  &> .ant-tabs-nav .ant-tabs-tab, 
+  &> div > .ant-tabs-nav .ant-tabs-tab {
+    padding: 0;
+  }
+  .ant-tabs-tab{
+    height: 40px;
+    line-height: 38px;
+  }
+  .ant-tabs-tab-btn{
+    display: flex;
+  }
+}
+
+// 消息窗口
+.home-message-box{
+  position: relative;
+  padding-bottom: 46px;
+  display: block;
+  width: 336px;
+  min-height: 300px;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 15%);
+  border-radius: 4px;
+  overflow:hidden;
+  .bottomBar{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 46px;
+    width: 100%;
+    line-height: 46px;
+    border-top: 1px solid #f0f0f0;
+    div{
+      display: inline-block;
+      width:50%;
+      height:100%;
+      text-align: center;
+      cursor: pointer;
+      &:last-child{
+        border-left: 1px solid #f0f0f0;
+      }
+      &:only-child{
+        width:100%;
+      }
+    }
+  }
+}
+
+
+
+
+

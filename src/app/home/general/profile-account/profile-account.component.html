@@ -1,0 +1,61 @@
+<div class="account-view-left">
+    <form nz-form [formGroup]="accountForm" nzLayout="vertical">
+        <nz-form-item>
+            <nz-form-label nzRequired>
+                账号
+            </nz-form-label>
+            <nz-form-control>
+                <input nz-input name="account" formControlName="account" placeholder="请输入账号">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzRequired>
+                手机号码
+            </nz-form-label>
+            <nz-form-control>
+                <input nz-input name="phone" formControlName="phone" placeholder="请输入手机号码">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label>密码</nz-form-label>
+            <nz-form-control>
+                <input nz-input type="password" name="password" formControlName="password" placeholder="请输入昵称">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-control>
+                <button nz-button nzType="primary" (click)="updateAccount()" [nzLoading]="loading">修改信息</button>
+            </nz-form-control>
+        </nz-form-item>
+        <!-- <nz-form-item>
+            <nz-form-label>s</nz-form-label>
+            <nz-form-control>
+                <input nz-input name="name" placeholder="请输入昵称">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label>昵称</nz-form-label>
+            <nz-form-control>
+                <input nz-input name="name" placeholder="请输入昵称">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label>昵称</nz-form-label>
+            <nz-form-control>
+                <input nz-input name="name" placeholder="请输入昵称">
+            </nz-form-control>
+        </nz-form-item> -->
+    </form>
+</div>
+<div class="account-view-right">
+    <!-- <nz-avatar class="avatar" [nzSize]="144" [nzSrc]="getAvatar()">
+    </nz-avatar>
+    <span>
+        <nz-upload [(nzFileList)]="fileList" nzShowUploadList="false" [nzBeforeUpload]="beforeUpload">
+            <button nz-button>
+                <i nz-icon nzType="upload"></i>
+                <span>修改</span>
+            </button>
+        </nz-upload>
+    </span> -->
+</div>

@@ -1,0 +1,22 @@
+<div class="form-container">
+    <form nz-form [formGroup]="formGroup">
+        <nz-form-item>
+            <nz-form-label nzSm="5" nzXs="24" nzRequired>快递公司</nz-form-label>
+            <nz-form-control nzSm="16" nzXs="24" nzErrorTip="请输入快递公司">
+                <input type="text" nz-input formControlName="name" placeholder="请输入快递公司">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzSm="5" nzXs="24" nzRequired>快递编码</nz-form-label>
+            <nz-form-control nzSm="16" nzXs="24" nzErrorTip="请输入快递编码">
+                <input type="text" nz-input formControlName="code" placeholder="请输入快递编码">
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+</div>
+<div *nzModalFooter>
+    <nz-space>
+        <button nz-button (click)="cancel()">取消</button>
+        <button nz-button nzType="primary" [nzLoading]="loading" (click)="submitForm()">确定</button>
+    </nz-space>
+</div>

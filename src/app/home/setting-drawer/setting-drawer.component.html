@@ -1,0 +1,74 @@
+<div class="setting-drawer-content">
+    <div>
+        <h3 class="ant-pro-setting-drawer-title">{{ 'setting.pagestyle.title' | translate }}</h3>
+        <div class="ant-pro-setting-drawer-block-checbox">
+            <div class="ant-pro-checkbox-item" [ngClass]="'ant-pro-checkbox-item-'+theme" nz-tooltip
+                [nzTooltipTitle]="('setting.pagestyle.'+theme) | translate" *ngFor="let theme of themes"
+                (click)="selectTheme(theme)">
+                <span *ngIf="setting.currentTheme === theme" nz-icon nzType="check"></span>
+            </div>
+        </div>
+    </div>
+    <nz-divider></nz-divider>
+    <div>
+        <h3 class="ant-pro-setting-drawer-title">{{ 'setting.navigation.mode' | translate }}</h3>
+        <div class="ant-pro-setting-drawer-block-checbox" style="margin-bottom: 24px;">
+            <div class="ant-pro-checkbox-item" [ngClass]="'ant-pro-checkbox-item-'+mode" nz-tooltip
+                [nzTooltipTitle]="('setting.navigation.'+mode) | translate" *ngFor="let mode of navigationModes"
+                (click)="selectMode(mode)">
+                <span *ngIf="setting.currentNavigationMode === mode" nz-icon nzType="check"></span>
+            </div>
+        </div>
+        <nz-list nzSplit="false">
+            <nz-list-item>
+                {{ 'setting.fixedheader' | translate }}
+                <ul nz-list-item-actions>
+                    <nz-list-item-action>
+                        <nz-switch nzSize="small" nz-tooltip
+                            [nzTooltipTitle]="setting.currentNavigationMode === 'mixinMenu'?'混合模式必须开启固定头部':''"
+                            [nzDisabled]="setting.currentNavigationMode === 'mixinMenu'"
+                            [(ngModel)]="setting.fixedHeader" (ngModelChange)="changeSetting()">
+                        </nz-switch>
+                    </nz-list-item-action>
+                </ul>
+            </nz-list-item>
+            <nz-list-item>
+                {{ 'setting.fixedsidebar' | translate }}
+                <ul nz-list-item-actions>
+                    <nz-list-item-action>
+                        <nz-switch nzSize="small" [(ngModel)]="setting.fixedSidebar" (ngModelChange)="changeSetting()">
+                        </nz-switch>
+                    </nz-list-item-action>
+                </ul>
+            </nz-list-item>
+        </nz-list>
+    </div>
+    <nz-divider></nz-divider>
+    <div>
+        <h3>{{ 'setting.othersettings' | translate }}</h3>
+        <nz-list>
+            <nz-list-item>
+                {{ 'setting.manytabs' | translate }}
+                <ul nz-list-item-actions>
+                    <nz-list-item-action>
+                        <nz-switch nzSize="small" [(ngModel)]="setting.showManytabs" (ngModelChange)="changeSetting()">
+                        </nz-switch>
+                    </nz-list-item-action>
+                </ul>
+            </nz-list-item>
+            <nz-list-item>
+                {{ 'setting.fixedmanytabs' | translate }}
+                <ul nz-list-item-actions>
+                    <nz-list-item-action>
+                        <nz-switch nzSize="small" [nzDisabled]="!setting.fixedHeader || !setting.showManytabs"
+                            [(ngModel)]="setting.fixedManytabs" (ngModelChange)="changeSetting()">
+                        </nz-switch>
+                    </nz-list-item-action>
+                </ul>
+            </nz-list-item>
+        </nz-list>
+    </div>
+</div>
+<!-- <div class="setting-drawer-close" (click)="close()">
+    <span nz-icon nzType="close"></span>
+</div> -->

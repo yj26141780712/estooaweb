@@ -1,0 +1,108 @@
+<nz-tabset [nzType]="'line'">
+    <nz-tab nzTitle="通知" nzAnimated="false">
+        <nz-list>
+            <nz-list-item class="item">
+                <nz-list-item-meta [nzAvatar]="avatar" [nzTitle]="title" [nzDescription]="'123'">
+                    <ng-template #avatar>
+                        <i nz-icon nzType="android" nzTheme="fill" class="item-icon"></i>
+                    </ng-template>
+                    <ng-template #title>
+                        <span>title1</span>
+                    </ng-template>
+                </nz-list-item-meta>
+            </nz-list-item>
+            <nz-list-item class="item">
+                <nz-list-item-meta [nzAvatar]="avatar" [nzTitle]="title" [nzDescription]="'123'">
+                    <ng-template #avatar>
+                        <i nz-icon nzType="android" nzTheme="fill" class="item-icon"></i>
+                    </ng-template>
+                    <ng-template #title>
+                        <span>title2</span>
+                    </ng-template>
+                </nz-list-item-meta>
+            </nz-list-item>
+            <nz-list-item class="item">
+                <nz-list-item-meta [nzAvatar]="avatar" [nzTitle]="title" [nzDescription]="'123'">
+                    <ng-template #avatar>
+                        <i nz-icon nzType="android" nzTheme="fill" class="item-icon"></i>
+                    </ng-template>
+                    <ng-template #title>
+                        <span>title3</span>
+                    </ng-template>
+                </nz-list-item-meta>
+            </nz-list-item>
+        </nz-list>
+        <div class="bottomBar">
+            <div>
+                清空通知
+            </div>
+            <div>
+                更多
+            </div>
+        </div>
+    </nz-tab>
+    <nz-tab nzTitle="消息">
+        <nz-list>
+            <nz-list-item class="item">
+                <nz-list-item-meta [nzAvatar]="avatar" [nzTitle]="title" [nzDescription]="description">
+                    <ng-template #avatar>
+                        <i nz-icon nzType="android" nzTheme="fill" class="item-icon"></i>
+                    </ng-template>
+                    <ng-template #title>
+                        <span>title1</span>
+                    </ng-template>
+                    <ng-template #description>
+                        <div>description</div>
+                        <div>2021-02-01 01:01:01</div>
+                    </ng-template>
+                </nz-list-item-meta>
+            </nz-list-item>
+            <nz-list-item class="item">
+                <nz-list-item-meta [nzAvatar]="avatar" [nzTitle]="title" [nzDescription]="description">
+                    <ng-template #avatar>
+                        <i nz-icon nzType="android" nzTheme="fill" class="item-icon"></i>
+                    </ng-template>
+                    <ng-template #title>
+                        <span>title1</span>
+                    </ng-template>
+                    <ng-template #description>
+                        <div>description</div>
+                        <div>2021-02-01 01:01:01</div>
+                    </ng-template>
+                </nz-list-item-meta>
+            </nz-list-item>
+            <nz-list-item class="item">
+                <nz-list-item-meta [nzAvatar]="avatar" [nzTitle]="title" [nzDescription]="description">
+                    <ng-template #avatar>
+                        <i nz-icon nzType="android" nzTheme="fill" class="item-icon"></i>
+                    </ng-template>
+                    <ng-template #title>
+                        <span>title1</span>
+                    </ng-template>
+                    <ng-template #description>
+                        <div>description</div>
+                        <div>2021-02-01 01:01:01</div>
+                    </ng-template>
+                </nz-list-item-meta>
+            </nz-list-item>
+        </nz-list>
+        <div class="bottomBar">
+            <div>
+                清空消息
+            </div>
+            <div>
+                更多
+            </div>
+        </div>
+    </nz-tab>
+    <nz-tab nzTitle="任务">
+        <nz-list>
+
+        </nz-list>
+        <div class="bottomBar">
+            <div>
+                清空任务
+            </div>
+        </div>
+    </nz-tab>
+</nz-tabset>

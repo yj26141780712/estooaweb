@@ -1,0 +1,27 @@
+<div class="message-layout" [ngClass]="getClass()">
+    <!-- 头像 -->
+    <div class="col-1" *ngIf="showAvatar">
+        <nz-avatar [nzSize]="56" [nzIcon]="'user'"></nz-avatar>
+    </div>
+    <!-- 消息主体 -->
+    <div class="col-2">
+        <div class="content-warpper">
+            <app-message-status-icon *ngIf="isMine()" [message]="message"></app-message-status-icon>
+            <app-message-text #child *ngIf="message.type === types.msgText" [isMine]="isMine()"
+                [payload]="message.payload" [message]="message"></app-message-text>
+            <app-message-image #child *ngIf="message.type === types.msgImage" [isMine]="isMine()"
+                [payload]="message.payload" [message]="message"></app-message-image>
+            <app-message-file #child *ngIf="message.type === types.msgFILE" [isMine]="isMine()"
+                [payload]="message.payload" [message]="message"></app-message-file>
+            <app-message-video #child *ngIf="message.type === types.msgVideo" [isMine]="isMine()"
+                [payload]="message.payload" [message]="message"></app-message-video>
+        </div>
+        <div *ngIf="!message.isRevoked" class="base" [ngClass]="getBaseClass()">
+            {{ converTime(message.time) }}
+        </div>
+    </div>
+    <!-- 消息状态 -->
+    <div class="col-3">
+
+    </div>
+</div>

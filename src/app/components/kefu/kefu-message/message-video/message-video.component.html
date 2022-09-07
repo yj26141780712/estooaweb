@@ -1,0 +1,7 @@
+<app-message-bubble [isMine]="isMine" [message]="message">
+    <video #video [src]="payload.videoUrl" controls class="video" (error)="onError($event)"
+        (canplay)="onImageLoad()"></video>
+    <div *ngIf="message.status === 'unSend'">
+        <nz-progress [nzPercent]="message.progress"></nz-progress>
+    </div>
+</app-message-bubble>

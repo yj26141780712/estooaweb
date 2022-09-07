@@ -1,0 +1,38 @@
+<div class="form-container">
+    <form nz-form [formGroup]="formGroup">
+        <nz-form-item>
+            <nz-form-label nzSm="5" nzXs="24" nzRequired>标题</nz-form-label>
+            <nz-form-control nzSm="16" nzXs="24">
+                <input type="text" nz-input formControlName="title">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzSm="5" nzXs="24" nzRequired>租金</nz-form-label>
+            <nz-form-control nzSm="16" nzXs="24" nzErrorTip="请输入租金">
+                <nz-input-number [nzMin]="0.00" [nzStep]="1" [nzPrecision]="2" formControlName="unitPrice"
+                    [nzFormatter]="formatterRMB" [nzParser]="parserRMB">
+                </nz-input-number>
+                <span style="margin: 0 8px;">/</span>
+                <nz-select formControlName="unit" style="width:80px">
+                    <nz-option [nzValue]="'day'" nzLabel="天"></nz-option>
+                    <nz-option [nzValue]="'month'" nzLabel="月"></nz-option>
+                    <nz-option [nzValue]="'year'" nzLabel="年"></nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzSm="5" nzXs="24" nzRequired>押金</nz-form-label>
+            <nz-form-control nzSm="16" nzXs="24" nzErrorTip="请输入押金">
+                <nz-input-number [nzMin]="0.00" [nzStep]="1" [nzPrecision]="2" formControlName="deposit"
+                    [nzFormatter]="formatterRMB" [nzParser]="parserRMB">
+                </nz-input-number>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+</div>
+<div *nzModalFooter>
+    <nz-space>
+        <button nz-button (click)="cancel()">取消</button>
+        <button nz-button nzType="primary" [nzLoading]="loading" (click)="submitForm()">确定</button>
+    </nz-space>
+</div>

@@ -1,0 +1,16 @@
+@import 'mixin';
+
+nz-input-group {
+    margin-bottom: 20px;
+}
+
+::ng-deep{
+    .ant-tree-list-holder{
+        height: 100%;
+        overflow: auto;
+        .scrollbar;
+    }
+    nz-input-group+nz-tree-view .ant-tree-list-holder{
+        height: calc(100% - 53px);
+    }
+}

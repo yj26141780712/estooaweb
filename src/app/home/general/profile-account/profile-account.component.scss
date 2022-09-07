@@ -1,0 +1,16 @@
+.account-view-left {
+    min-width: 224px;
+    max-width: 448px;
+}
+
+.account-view-right {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    flex: 1 1;
+    flex-direction: column;
+    max-width: 448px;
+    // .avatar {
+    //     margin-bottom: 12px;
+    // }
+}

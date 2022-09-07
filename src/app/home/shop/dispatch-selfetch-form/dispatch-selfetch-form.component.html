@@ -1,0 +1,33 @@
+<div class="form-container">
+    <form nz-form [formGroup]="formGroup">
+        <nz-form-item>
+            <nz-form-label nzSm="5" nzXs="24" nzRequired>
+                模板名称
+            </nz-form-label>
+            <nz-form-control nzSm="16" nzXs="24" nzErrorTip="请输入模板名称">
+                <input nz-input type="text" formControlName="name" placeholder="请输入模板名称">
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+    <form nz-form [formGroup]="formGroup">
+        <nz-form-item>
+            <nz-form-label nzSm="5" nzXs="24" nzRequired>
+                门店
+            </nz-form-label>
+            <nz-form-control nzSm="16" nzXs="24" nzErrorTip="请输入模板名称">
+                <div>
+                    <nz-tag *ngFor="let tag of tags;let i = index" nzMode="closeable" (nzOnClose)="onClose(i)">
+                        {{tag.name}}
+                    </nz-tag>
+                </div>
+                <div>
+                    <a (click)="selectStore($event)">选择门店</a>
+                </div>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+</div>
+<div *nzModalFooter>
+    <button nz-button (click)="cancel()">取消</button>
+    <button nz-button nzType="primary" [nzLoading]="loading" (click)="submitForm()">确定</button>
+</div>

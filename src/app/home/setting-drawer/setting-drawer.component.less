@@ -1,0 +1,116 @@
+@import 'mixin';
+
+.ant-pro-setting-drawer-block-checbox{
+  display: flex;
+}
+
+.ant-pro-checkbox-item{
+    position: relative;
+    margin-right: 16px;
+    width: 44px;
+    height: 36px;
+    background-color: #f0f2f5;
+    box-shadow: 0 1px 2.5px 0 rgb(0 0 0 / 18%);
+    overflow: hidden;
+    border-radius: 4px;
+    cursor: pointer;
+    &::before {
+       position: absolute;
+       display: block;
+       top: 0;
+       left: 0;
+       content: '';
+       width: 33%;
+       height: 100%;
+       background-color: #fff;
+    }
+    &::after{
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 25%;
+        content: '';
+        display: block;
+        background-color: #fff;
+    }
+    span{
+        position: absolute;
+        right: 6px;
+        bottom: 4px;
+        color: #1890ff;
+    }
+    &-dark{
+        &::before{
+            background-color: #001529;
+            z-index: 1;
+        }
+        &::after{
+            background-color: #fff;
+        }
+    }
+    &-red{
+        background-color: #fff;
+        &::before{
+            background-color: #6e6e6e;
+        }
+        &::after{
+            background-color: #a33434;
+        }
+    }
+    &-siderMenu{
+        &::before{
+            z-index: 1;
+            background-color: #001529 
+        }
+        &::after{
+            background-color: #fff;;
+        }
+    }
+    &-topMenu{
+        &::before{
+            background-color: transparent;
+        }
+        &::after{
+            background-color: #001529;
+        }
+    }
+    &-mixinMenu{
+        &::before{
+            background-color: #fff;
+        }
+        &::after{
+            background-color: #001529;
+        }
+    }
+}
+
+.setting-drawer-close {
+  position: fixed;
+  top: 239px;
+  right: 300px;
+  height: 48px;
+  width: 48px;
+  font-size: 16px;
+  border-radius: 4px 0 0 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  span {
+    color: #fff;
+    font-size: 20px;
+  }
+}
+
+.themeMixin({
+    :host {
+        .setting-drawer-close  {
+            background-color: @primary-color;
+        }
+    }    
+});
+
+
+
+  

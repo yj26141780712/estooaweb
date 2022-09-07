@@ -1,0 +1,25 @@
+.left-right-layout {
+    padding: 20px;
+    height: 100%;
+    .left {
+        height: 100%;
+        .tree {
+            height: calc(100% - 72px);
+            &-content {
+                padding: 6px 0 12px;
+                height: 100%;
+                overflow: hidden;
+            }
+        }
+    }
+    .right {
+        height: 100%;
+        .table {
+            padding: 20px;
+        }
+    }
+}
+
+.highlight {
+    color: red;
+}

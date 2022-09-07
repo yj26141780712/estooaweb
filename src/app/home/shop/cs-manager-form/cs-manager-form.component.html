@@ -1,0 +1,62 @@
+<div class="form-container">
+    <form nz-form [formGroup]="formGroup">
+        <nz-form-item>
+            <nz-form-label nzSm="5" nzXs="24" nzRequired>名称</nz-form-label>
+            <nz-form-control nzSm="16" nzXs="24" nzErrorTip="请输入客服名称">
+                <input type="text" nz-input formControlName="nickname" placeholder="请输入客服名称">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzSm="5" nzXs="24">头像</nz-form-label>
+            <nz-form-control nzSm="16" nzXs="24">
+                <div class="upload-list">
+                    <div *ngIf="image" class="upload-list-item">
+                        <div class="image-container">
+                            <img nz-image width="60px" height="60px" [nzDisablePreview]="true" [nzSrc]="image.url" />
+                            <div class="image-tools">
+                                <span nz-icon nzType="eye" title="预览" (click)="preview($event)"></span>
+                                <span nz-icon nzType="delete" title="删除" (click)="delete($event)"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="upload-list-item">
+                        <div class="add-img" (click)="addImg()">
+                            <span nz-icon nzType="plus"></span>
+                        </div>
+                    </div>
+                </div>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzSm="5" nzXs="24" nzRequired>管理账号</nz-form-label>
+            <nz-form-control nzSm="16" nzXs="24" nzErrorTip="请选择绑管理账号">
+                <nz-select formControlName="adminId" nzPlaceHolder="请选择管理账号" nzAllowClear>
+                    <nz-option *ngFor="let item of list" [nzLabel]="item.label" [nzValue]="item.value">
+                    </nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzSm="5" nzXs="24" nzRequired>接待上限</nz-form-label>
+            <nz-form-control nzSm="16" nzXs="24" nzErrorTip="请输入接待上限">
+                <nz-input-number formControlName="maxNum" [nzPlaceHolder]="'请输入接待上限'">
+                </nz-input-number>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzSm="5" nzXs="24" nzRequired>状态</nz-form-label>
+            <nz-form-control nzSm="16" nzXs="24" nzErrorTip="请选择状态">
+                <nz-radio-group formControlName="status">
+                    <label nz-radio nzValue="online">在线</label>
+                    <label nz-radio nzValue="offline">离线</label>
+                </nz-radio-group>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+</div>
+<div *nzModalFooter>
+    <nz-space>
+        <button nz-button (click)="close()">取消</button>
+        <button nz-button nzType="primary" [nzLoading]="loading" (click)="submitForm()">确定</button>
+    </nz-space>
+</div>

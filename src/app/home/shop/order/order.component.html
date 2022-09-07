@@ -1,0 +1,234 @@
+<div class="page-container menu">
+    <div class="table-search">
+        <form nz-form [formGroup]="formGroup">
+            <div nz-row [nzGutter]="[24,0]">
+                <div nz-col [nzLg]="6" [nzMd]="12" [nzSm]="24" [nzXs]="24">
+                    <nz-form-item>
+                        <nz-form-label nzFor="">
+                            订单状态
+                        </nz-form-label>
+                        <nz-form-control>
+                            <nz-select formControlName="statusCode" [nzPlaceHolder]="'请选择'">
+                                <nz-option *ngFor="let option of statusCodeOptions" [nzLabel]="option.label"
+                                    [nzValue]="option.value">
+                                </nz-option>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col [nzLg]="6" [nzMd]="12" [nzSm]="24" [nzXs]="24">
+                    <nz-form-item>
+                        <nz-form-label nzFor="">
+                            下单时间
+                        </nz-form-label>
+                        <nz-form-control>
+                            <app-date-picker-range [placement]="['bottomLeft','bottomRight']"
+                                formControlName="createTime">
+                            </app-date-picker-range>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col [nzLg]="3" [nzMd]="12" [nzSm]="24" [nzXs]="24">
+                    <nz-form-item>
+                        <nz-form-control>
+                            <nz-space>
+                                <button *nzSpaceItem nz-button nzType="primary" (click)="search()">搜索</button>
+                                <button *nzSpaceItem nz-button nzType="primary" (click)="reset()">重置</button>
+                            </nz-space>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="table-body" #tableBody>
+        <div class="table-tools">
+            <div class="table-tools-left">
+                <nz-space>
+                    <button nz-button nzType="primary" (click)="export()">
+                        <span nz-icon nzType="export"></span>
+                        订单导出
+                    </button>
+                </nz-space>
+            </div>
+            <div class="table-tools-right">
+                <div class="table-tools-setting-item">
+                    <span nz-icon nzType="reload" nz-tooltip nzTooltipTitle="刷新" (click)="refresh()"></span>
+                </div>
+                <div class="table-tools-setting-item">
+                    <span nz-icon nzType="column-height" nz-tooltip nzTooltipTitle="密度" nz-dropdown
+                        [nzDropdownMenu]="menu" [nzTrigger]="'click'" [nzPlacement]="'bottomRight'"></span>
+                    <nz-dropdown-menu #menu="nzDropdownMenu">
+                        <ul nz-menu nzSelectable style="width: 80px;">
+                            <li nz-menu-item (click)="setSize('default')">默认</li>
+                            <li nz-menu-item (click)="setSize('middle')">中等</li>
+                            <li nz-menu-item (click)="setSize('small')">紧凑</li>
+                        </ul>
+                    </nz-dropdown-menu>
+                </div>
+                <div class="table-tools-setting-item">
+                    <span nz-icon nzType="setting" nz-tooltip nzTooltipTitle="列设置" nz-popover
+                        [nzPopoverTitle]="titleTemplate" [nzPopoverContent]="contentTemplate"
+                        [nzPopoverTrigger]="'click'" [nzPopoverPlacement]="'bottomRight'"></span>
+                    <ng-template #titleTemplate>
+                        <div class="table-column-setting-list">
+                            <label nz-checkbox [(ngModel)]="allChecked" [nzIndeterminate]="indeterminate"
+                                (ngModelChange)="updateAllChecked()">列展示</label>
+                            <a (click)="resetColumns($event)">重置</a>
+                        </div>
+                    </ng-template>
+                    <ng-template #contentTemplate>
+                        <div class="table-column-setting-item" *ngFor="let column of columns">
+                            <label nz-checkbox [(ngModel)]="column.checked"
+                                (ngModelChange)="updateSingleChecked()">{{column.title}}</label>
+                        </div>
+                    </ng-template>
+                </div>
+                <div class="table-tools-setting-item">
+                    <span nz-icon [nzType]="getFullscreen()?'fullscreen-exit':'fullscreen'" nz-tooltip
+                        nzTooltipTitle="放大" (click)="fullscreen()"></span>
+                </div>
+            </div>
+        </div>
+        <nz-table #nzTable [nzData]="tableData" [nzLoading]="loading" [nzSize]="tableSize" [nzPageSize]="pageSize"
+            [nzFrontPagination]="false" [nzTotal]="total" [nzPageIndex]="pageNum"
+            (nzQueryParams)="onQueryParamsChange($event)">
+            <thead>
+                <tr>
+                    <th nzWidth="60px">
+                        序号
+                    </th>
+                    <ng-container *ngFor="let column of columns">
+                        <th *ngIf="column.checked" [nzColumnKey]="column.key" [nzShowFilter]="column.showFilter"
+                            [nzFilters]="column.filters || []" [nzShowSort]="column.showSort" [nzFilterFn]="true"
+                            [nzSortFn]="true" [nzSortPriority]="true">
+                            {{ column.title }}
+                        </th>
+                    </ng-container>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let item of nzTable.data;let i = index">
+                    <tr class="order-head" *ngIf="(item.parent && item.parent.expand) || !item.parent">
+                        <td>
+                            {{i+1}}
+                            <span nz-icon nzType=""></span>
+                        </td>
+                        <td>
+                            <span>ID:{{item.id}}</span>
+                            <span style="margin-left: 8px;color: #999;">订单号:{{ item.orderSn }}</span>
+                            <span style="margin-left: 8px;color: #999">下单时间:{{ formatTime(item.createTime) }}</span>
+                        </td>
+                        <td [colSpan]="columns.length-1">
+                            <span *ngIf="item.status==='1' || item.status==='2'"
+                                class="pay-span">{{item.payTypeText}}</span>
+                        </td>
+                        <td>
+                            <a (click)="showLog(item.id)">操作日志</a>
+                        </td>
+                    </tr>
+                    <tr class="order-body" *ngFor="let product of item.orderProduct">
+                        <ng-container *ngFor="let column of columns">
+                            <td *ngIf="column.checked" [colSpan]="column.key==='product'?2:1">
+                                <ng-container [ngSwitch]="column.key">
+                                    <ng-container *ngSwitchCase="'product'">
+                                        <div class="product-box">
+                                            <img nz-image width="50px" height="50px"
+                                                [nzSrc]="item?.orderProduct[0]?.productImage" alt="" />
+                                            <div>
+                                                <div style="margin-bottom: 12px;">
+                                                    <span>{{ product.productTitle }}</span>
+                                                    <span *ngIf="item.orderType==='rent'&& product.productSn"
+                                                        style="margin-right: 12px;color:#999">
+                                                        {{ product.productSn }}
+                                                    </span>
+                                                </div>
+                                                <div style="color:#999">
+                                                    <span
+                                                        style="margin-right: 8px;color: #999;">规格：{{product.productUnitName}}</span>
+                                                    <span
+                                                        style="margin-right: 8px;color: #999;">单价：{{product.productPrice}}</span>
+                                                    <span
+                                                        style="margin-right: 8px;color: #999;">数量：{{product.productNum}}</span>
+                                                    <span *ngIf="item.orderType==='rent'" style="margin-right: 8px;"
+                                                        class="order-type rent">租借</span>
+                                                    <span *ngIf="item.orderType==='relet'" style="margin-right: 8px;"
+                                                        class="order-type relet">续租</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngSwitchCase="'dispatchStatusText'">
+                                        <div *ngIf="item.status ==='1' || item.status ==='2' ">
+                                            <span
+                                                *ngIf="!(item.status=='1'&&product.dispatchStatus=='0')">{{product.dispatchStatusText
+                                                }}</span>
+                                            <a *ngIf="item.status=='1'&&product.dispatchStatus==''"
+                                                (click)="orderSend($event,item)">
+                                                去发货
+                                            </a>
+                                        </div>
+                                        <div *ngIf="item.status ==='0' || item.status ==='-1' || item.status ==='-2'">
+                                            --
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngSwitchCase="'statusDesc'">
+                                        {{item.statusDesc}}
+                                    </ng-container>
+                                    <ng-container *ngSwitchCase="'account'">
+                                        <div class="account-box">
+                                            <div>
+                                                {{ item?.account?.name }}
+                                            </div>
+                                            <div>
+                                                {{ item?.account?.phone }}
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngSwitchCase="'get'">
+                                        <div class="get-box" nz-popover [nzPopoverContent]="getTemp">
+                                            <div>
+                                                {{item.realname}}
+                                            </div>
+                                            <div>
+                                                {{item.phone}}
+                                            </div>
+                                            <ng-template #getTemp>
+                                                <div>
+                                                    收货信息：
+                                                </div>
+                                                <div>
+                                                    {{item.provinceName + item.cityName + item.areaName + item.address
+                                                    }}
+                                                </div>
+                                            </ng-template>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngSwitchCase="'payFee'">
+                                        <div class="payFee-box">
+                                            <div>{{ item.payFee }}元</div>
+                                            <div *ngIf="item.dispatchAmount&&item.dispatchAmount!=='0.00'&&item.payFee!='0.00'"
+                                                style="color:#FFB333">(含运费:{{
+                                                item.dispatchAmount }}元)</div>
+                                            <div *ngIf="item.deposit&&item.deposit!=='0.00'&&item.payFee!='0.00'"
+                                                style="color:#FFB333">
+                                                (含押金:{{
+                                                item.deposit }}元)</div>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngSwitchDefault>
+                                        {{ column.change?column.change(product[column.key]):product[column.key] }}
+                                    </ng-container>
+                                </ng-container>
+                            </td>
+                        </ng-container>
+                        <td>
+                            <a (click)="showDetail(item.id)">查看详情</a>
+                        </td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </nz-table>
+    </div>
+</div>

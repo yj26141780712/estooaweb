@@ -1,0 +1,24 @@
+{
+    "data": [
+        {
+            "athId": 0,
+            "avgPower": -0.10000000149011612,
+            "avgSpeed": 0.009999999776482582,
+            "direction": 1,
+            "ecc": 1,
+            "energy": -0.009999999776482582,
+            "groupId": 0,
+            "groupName": "",
+            "indexGroup": "0-1615525746",
+            "indexId": 7,
+            "maxPower": 0.10000000149011612,
+            "maxSpeed": 0.04999999701976776,
+            "planId": 21,
+            "planName": "ElasticRope1",
+            "actionId": 0,
+            "actionName": "大腿训练",
+            "rfd": 30
+        }
+    ],
+    "status": 2
+}

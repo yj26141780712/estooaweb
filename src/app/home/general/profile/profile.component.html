@@ -1,0 +1,17 @@
+<div class="profile">
+    <div class="profile-left">
+        <ul nz-menu nzTheme='light' [nzMode]="'vertical'">
+            <li *ngFor="let item of menuItems;let i = index" nz-menu-item [nzSelected]="selectedIndex ===i"
+                (click)="selectItem($event,i)">
+                <span>{{ item.title }}</span>
+            </li>
+        </ul>
+    </div>
+    <div class="profile-right">
+        <app-profile-account *ngIf="selectedIndex===0">
+        </app-profile-account>
+        <app-profile-log *ngIf="selectedIndex===1">
+
+        </app-profile-log>
+    </div>
+</div>

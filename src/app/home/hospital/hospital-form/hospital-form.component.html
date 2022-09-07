@@ -1,0 +1,70 @@
+<div class="form-container">
+    <nz-spin [nzSpinning]="formLoading">
+        <form nz-form [formGroup]="formGroup" (ngSubmit)="submit()">
+            <nz-form-item>
+                <nz-form-label nzSm="5" nzXs="24" nzRequired>医院名称</nz-form-label>
+                <nz-form-control nzSm="16" nzXs="24" [nzErrorTip]="'请输入医院名称'">
+                    <input type="text" nz-input formControlName="name" placeholder="请输入医院名称">
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label nzSm="5" nzXs="24" nzRequired>医院图片</nz-form-label>
+                <nz-form-control nzSm="16" nzXs="24" [nzErrorTip]="'请上传医院图片'">
+                    <div nz-row [nzGutter]="[8,8]">
+                        <div nz-col [nzSpan]="6" *ngFor="let img of images;let i=index">
+                            <div class="image-container" (click)="coverIndex=i">
+                                <span *ngIf="coverIndex===i" class="check" nz-icon nzType="check-circle" nzTheme="fill"
+                                    nz-tooltip nzTooltipTitle="封面图片"></span>
+                                <img nz-image width="102px" height="102px" [nzDisablePreview]="true"
+                                    [nzSrc]="img.src" />
+                                <div class="image-tools">
+                                    <span nz-icon nzType="eye" title="预览" (click)="preview($event,i)"></span>
+                                    <span nz-icon nzType="delete" title="删除" (click)="delete($event,i)"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div nz-col [nzSpan]="6">
+                            <nz-upload nzListType="picture-card" [(nzFileList)]="fileList"
+                                [nzBeforeUpload]="beforeUpload" [nzShowUploadList]="false" [nzAccept]="'image/*'">
+                                <div>
+                                    <i nz-icon nzType="plus"></i>
+                                    <div style="margin-top: 8px">点击上传</div>
+                                </div>
+                            </nz-upload>
+                        </div>
+                    </div>
+                    <div style="display:none">
+                        <input type="text" formControlName="image">
+                    </div>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label nzSm="5" nzXs="24" nzRequired>医院简介</nz-form-label>
+                <nz-form-control nzSm="16" nzXs="24" [nzErrorTip]="'请输入医院简介'">
+                    <nz-textarea-count [nzMaxCharacterCount]="1000">
+                        <textarea rows="4" nz-input formControlName="desc" placeholder="请输入医院简介"></textarea>
+                    </nz-textarea-count>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label nzSm="5" nzXs="24" nzRequired>医院地址</nz-form-label>
+                <nz-form-control nzSm="16" nzXs="24" [nzErrorTip]="'请选择医院省市区'">
+                    <nz-cascader [nzOptions]="areaOptions" formControlName="area" nzPlaceHolder="请选择省市区">
+                    </nz-cascader>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label nzSm="5" nzXs="24" [nzNoColon]="true"></nz-form-label>
+                <nz-form-control nzSm="16" nzXs="24" [nzErrorTip]="'请输入医院详细地址'">
+                    <input type="text" nz-input formControlName="address" placeholder="请输入医院详细地址">
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+    </nz-spin>
+</div>
+<div *nzModalFooter>
+    <nz-space>
+        <button nz-button (click)="cancle()">取消</button>
+        <button nz-button nzType="primary" (click)="submit()" [nzLoading]="loading">提交</button>
+    </nz-space>
+</div>

@@ -1,0 +1,15 @@
+.form-container {
+    padding: 15px;
+    height: calc(100vh - 220px);
+    max-height: 100%;
+}
+
+.title {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+}

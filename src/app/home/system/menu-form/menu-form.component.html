@@ -1,0 +1,76 @@
+<div class="form-container">
+    <form nz-form [formGroup]="formGroup" (ngSubmit)="submitForm()">
+        <nz-form-item>
+            <nz-form-label nzSm="6" nzXs="24" nzRequired>菜单名称</nz-form-label>
+            <nz-form-control nzSm="16" nzXs="24" nzErrorTip="请输入菜单名称">
+                <input type="text" nz-input formControlName="name" autocomplete="off" placeholder="请输入菜单名称">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzSm="6" nzXs="24">关键字</nz-form-label>
+            <nz-form-control nzSm="16" nzXs="24" nzErrorTip="请输入关键字">
+                <input type="text" nz-input formControlName="value" autocomplete="off" placeholder="请输入关键字">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzSm="6" nzXs="24">菜单图标</nz-form-label>
+            <nz-form-control nzSm="16" nzXs="24">
+                <input type="text" nz-input formControlName="icon" autocomplete="off" placeholder="请输入图标名称">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzSm="6" nzXs="24">菜单地址</nz-form-label>
+            <nz-form-control nzSm="16" nzXs="24">
+                <input type="text" nz-input formControlName="url" placeholder="请输入url">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzSm="6" nzXs="24">菜单排序</nz-form-label>
+            <nz-form-control nzSm="16" nzXs="24">
+                <input type="text" nz-input formControlName="sort" autocomplete="off" placeholder="请输入排序数字">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzSm="6" nzXs="24">菜单层级</nz-form-label>
+            <nz-form-control nzSm="16" nzXs="24">
+                <input type="text" nz-input formControlName="level" autocomplete="off" placeholder="请输入排序数字">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzSm="6" nzXs="24">父菜单</nz-form-label>
+            <nz-form-control nzSm="16" nzXs="24">
+                <nz-tree-select nzDefaultExpandAll [nzNodes]="parentNodes" nzShowSearch nzPlaceHolder="请选择父级菜单"
+                    formControlName="parentId" [nzDropdownStyle]="{
+                        maxHeight:'200px'
+                    }">
+                </nz-tree-select>
+                <!-- <nz-select formControlName="parentId" [nzAllowClear]="true">
+                    <nz-option *ngFor="let option of options" [nzValue]="option.value" [nzLabel]="option.label">
+                    </nz-option>
+                </nz-select> -->
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzSm="6" nzXs="24">是否页面</nz-form-label>
+            <nz-form-control nzSm="16" nzXs="24">
+                <label nz-checkbox formControlName="isPage">是</label>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label nzSm="6" nzXs="24">操作权限</nz-form-label>
+            <nz-form-control nzSm="16" nzXs="24">
+                <nz-select nzMode="multiple" nzPlaceHolder="请选择页面操作权限" formControlName="actions">
+                    <nz-option *ngFor="let item of actionOptions" [nzLabel]="item.label" [nzValue]="item.value">
+                    </nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+</div>
+
+<div *nzModalFooter>
+    <nz-space>
+        <button nz-button (click)="cancel()">取消</button>
+        <button nz-button nzType="primary" [nzLoading]="loading" (click)="submitForm()">确定</button>
+    </nz-space>
+</div>

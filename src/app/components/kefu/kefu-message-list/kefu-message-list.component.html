@@ -1,0 +1,8 @@
+<div *ngIf="!isCompleted" class="more">
+    <span (click)="getMore()">查看更多</span>
+</div>
+<div *ngIf="isCompleted" class="no-more">
+    没有更多了
+</div>
+<app-kefu-message *ngFor="let item of list" [message]="item"></app-kefu-message>
+<div *ngIf="isShowScrollButtomTip" class="newMessageTips" (click)="scrollToButtom()">回到最新位置</div>

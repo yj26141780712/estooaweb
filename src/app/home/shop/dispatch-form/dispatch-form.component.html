@@ -1,0 +1,49 @@
+<div class="form-container">
+    <form nz-form [formGroup]="formGroup">
+        <nz-form-item>
+            <nz-form-label nzRequired>
+                模板名称
+            </nz-form-label>
+            <nz-form-control nzErrorTip="请输入模板名称">
+                <input nz-input type="text" formControlName="name" placeholder="请输入模板名称">
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+    <nz-form-item>
+        <div class="express-table-header">
+            <div style="flex: 1 1 0%;">
+                可配送区域
+            </div>
+            <div class="custom-item">
+                运费(元)
+            </div>
+            <div class="custom-item-end"></div>
+        </div>
+        <div class="express-table-body">
+            <div class="express-table-body-item" *ngFor="let item of items;let i = index">
+                <div class="custom-item-area">
+                    <span *ngIf="item&&item.areaText" class="ellipsis-item-2 flex-1">
+                        {{ item?.areaText }}
+                    </span>
+                    <button *ngIf="!item?.areaText" nz-button (click)="select(item,$event)">选择</button>
+                    <a *ngIf="item&&item.areaText" style="margin:0 12px;width: 40px;"
+                        (click)="select(item,$event)">选择</a>
+                </div>
+                <div class="custom-item">
+                    <nz-input-number [(ngModel)]="item.price" [nzMin]="0.00" [nzStep]="1" [nzPrecision]="2">
+                    </nz-input-number>
+                </div>
+                <div class="custom-item-end">
+                    <a (click)="delete($event,i)">删除</a>
+                </div>
+            </div>
+            <div class="express-table-body-item add">
+                <a (click)="add($event)">添加</a>
+            </div>
+        </div>
+    </nz-form-item>
+</div>
+<div *nzModalFooter>
+    <button nz-button (click)="cancel()">取消</button>
+    <button nz-button nzType="primary" [nzLoading]="loading" (click)="submitForm()">确定</button>
+</div>

@@ -1,0 +1,32 @@
+<input nz-input nz-popover [ngModel]="getText()" type="text" [(nzPopoverVisible)]="visible"
+    (nzPopoverVisibleChange)="change($event)" [nzPopoverPlacement]="placement" [nzPopoverTrigger]="'click'"
+    [nzPopoverContent]="rangTemp" (ngModelChange)="changeText($event)" [placeholder]="placeholder">
+<ng-template #rangTemp>
+    <div class="daterangepicker">
+        <div class="ranges">
+            <ul>
+                <li *ngFor="let item of items" [class.active]="item.value === activeValue"
+                    (click)="selectItem(item,$event)">
+                    {{item.label}}
+                </li>
+            </ul>
+        </div>
+        <div *ngIf="activeValue==='custom'" class="calendar">
+            <div class="input">
+                <nz-input-group [nzPrefix]="calendarIcon">
+                    <input type="text" nz-input [ngModel]="getDate1()" />
+                </nz-input-group>
+                <nz-input-group [nzPrefix]="calendarIcon">
+                    <input type="text" nz-input [ngModel]="getDate2()" />
+                </nz-input-group>
+                <ng-template #calendarIcon>
+                    <i nz-icon nzType="calendar" nzTheme="outline"></i>
+                </ng-template>
+            </div>
+            <div>
+                <nz-range-picker nzInline class="no-box-shadow" [(ngModel)]="ranges"
+                    (ngModelChange)="rangeChage($event)"></nz-range-picker>
+            </div>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,41 @@
+<form nz-form [formGroup]="formGroup" (ngSubmit)="submitForm()">
+    <nz-form-item>
+        <nz-form-label nzSm="6" nzXs="24" nzRequired>字典</nz-form-label>
+        <nz-form-control nzSm="16" nzXs="24" nzErrorTip="请选择字典">
+            <nz-select formControlName="dictTypeId" [nzAllowClear]="true" [nzShowSearch]="true">
+                <nz-option *ngFor="let option of dictTypeOptions" [nzLabel]="option.label" [nzValue]="option.value">
+                </nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label nzSm="6" nzXs="24" nzRequired>数据名称</nz-form-label>
+        <nz-form-control nzSm="16" nzXs="24" nzErrorTip="请输入数据名称">
+            <input type="text" nz-input formControlName="name" autocomplete="off" placeholder="请输入字典名称">
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label nzSm="6" nzXs="24" nzRequired>数据值</nz-form-label>
+        <nz-form-control nzSm="16" nzXs="24" nzErrorTip="请输入数据值">
+            <input type="text" nz-input formControlName="value" autocomplete="off" placeholder="请输入字典名称">
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label nzSm="6" nzXs="24">备注说明</nz-form-label>
+        <nz-form-control nzSm="16" nzXs="24" nzErrorTip="请输入备注说明">
+            <input type="text" nz-input formControlName="remark" autocomplete="off" placeholder="请输入备注说明">
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label nzSm="6" nzXs="24" nzRequired>排序</nz-form-label>
+        <nz-form-control nzSm="16" nzXs="24" nzErrorTip="请输入排序">
+            <input type="text" nz-input formControlName="seq" autocomplete="off" placeholder="请输入排序">
+        </nz-form-control>
+    </nz-form-item>
+</form>
+<div *nzModalFooter>
+    <nz-space>
+        <button nz-button (click)="cancel()">取消</button>
+        <button nz-button nzType="primary" (click)="submitForm()" [nzLoading]="loading">确定</button>
+    </nz-space>
+</div>

@@ -1,0 +1,51 @@
+.order-head {
+    td {
+        padding: 0 9px;
+        // background-color: #f9f9f9 !important;
+        height: 30px;
+    }
+}
+
+.pay-span {
+    padding: 2px 4px;
+    border: 1px solid #b698e7;
+    color: #8a44fc;
+    background-color: #e9e2f5;
+    font-size: 12px;
+    border-radius: 4px;
+}
+
+.product-box {
+    padding: 8px 12px;
+    display: flex;
+    img {
+        margin-right: 14px;
+    }
+    .order-type {
+        display: inline-block;
+        height: 20px;
+        line-height: 20px;
+        color: #fff;
+        border-radius: 4px;
+        padding: 0 10px;
+        font-size: 12px;
+    }
+    .rent {
+        background-color: #2f54eb;
+    }
+
+    .relet {
+        background-color: #52c41a;
+    }
+}
+
+.account-box {
+    text-align: center;
+}
+.get-box {
+    text-align: center;
+}
+
+.payFee-box {
+    text-align: center;
+}

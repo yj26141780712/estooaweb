@@ -1,0 +1,65 @@
+@import '../../node_modules/ng-zorro-antd/ng-zorro-antd.less';
+@import './themes/red.less';
+
+.ant-layout-header {
+    background-color:@primary-color;
+    .header-main-center .ant-menu{
+        color: rgba(255, 255, 255, 0.65);
+        background: transparent;
+        &.ant-menu-dark .ant-menu-item-selected .ant-menu-item-icon + span,
+        &.ant-menu-dark .ant-menu-item-selected .anticon + span, 
+        &.ant-menu-dark .ant-menu-item-selected .anticon{
+            color: @white;
+        }
+    }
+    .ant-badge {
+        color:  @white;
+    }
+}
+
+.ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected {
+    color: @layout-sider-background;
+    background-color: #fff;
+}
+
+.ant-menu-dark  .ant-menu-item-selected {
+   .ant-menu-item-icon + span,.anticon + span,.anticon{
+    color: #6e6e6e;
+    } 
+}
+
+.ant-menu-dark .ant-menu-item-selected > a, 
+.ant-menu-dark .ant-menu-item-selected > span > a, 
+.ant-menu-dark .ant-menu-item-selected > a:hover, 
+.ant-menu-dark .ant-menu-item-selected > span > a:hover {
+    color: #6e6e6e;
+}
+
+.sider-links{
+    color: @white;
+}
+
+.sider-logo{
+    color: @white;
+}
+
+.header-main-center .ant-menu{
+    background: transparent;
+}
+
+.modal-select {
+    .ant-select-item {
+      min-height: 40px;
+      line-height: 30px;
+      font-size: 16px;
+      color: #6e6e6e;
+    }
+    .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
+      background-color: #e3e3e3;
+    }
+    .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+      color: #fff;
+      background-color: @primary-color;
+    }
+}
+
